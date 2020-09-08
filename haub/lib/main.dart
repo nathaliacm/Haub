@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:haub/view/add_question/question_page.dart';
+import 'package:haub/view/chat_screen/chat_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,58 +12,54 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: _title,  
-      home: MyStatelessWidget(),
+      home: MyHomePage(),
+
     );
   }
 }
 
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-final SnackBar snackBar = const SnackBar(content: Text('Showing Snackbar'));
 
-void openPage(BuildContext context) {
-  Navigator.push(context, MaterialPageRoute(
-    builder: (BuildContext context) {
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text('Next page'),
-        ),
-        body: const Center(
-          child: Text(
-            'This is the next page',
-            style: TextStyle(fontSize: 24),
-          ),
-        ),
-      );
-    },
-  ));
-}
+class MyHomePage extends StatelessWidget {
+  MyHomePage({Key key}) : super(key: key);
 
-/// This is the stateless widget that the main application instantiates.
-class MyStatelessWidget extends StatelessWidget {
-  MyStatelessWidget({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: const Text('Haub'),
+        title: const Text('Haub home'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.search),
-            tooltip: 'Show Snackbar',
-            onPressed: () {
-              scaffoldKey.currentState.showSnackBar(snackBar);
-            },
+            onPressed: () {},
           ),
         ],
       ),
-      body: const Center(
-        child: Text(
-          'This is the home page',
-          style: TextStyle(fontSize: 24),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            RaisedButton(
+              child: Text("Navegar para o chat"),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (BuildContext context) => MyChatPage()
+              ));
+            }),
+
+            RaisedButton(
+              child: Text("Navegar para o adicionar"),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (BuildContext context) => MyQuestionPage()
+              ));
+            }),
+          ],
+
         ),
-      ),
+      ),      
     );
   }
 }
