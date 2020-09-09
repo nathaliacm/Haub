@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:haub/view/add_question/question_page.dart';
 import 'package:haub/view/chat_screen/chat_screen.dart';
 
+import 'models/colorPalette.dart';
+
 void main() => runApp(MyApp());
 
 /// This Widget is the main application widget.
@@ -29,6 +31,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
+        backgroundColor: ColorPalette.primaryColor,
         title: const Text('Haub home'),
         actions: <Widget>[
           IconButton(
@@ -43,6 +46,7 @@ class MyHomePage extends StatelessWidget {
           children: [
             RaisedButton(
               child: Text("Navegar para o chat"),
+              color: ColorPalette.secondaryColor,
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (BuildContext context) => MyChatPage()
@@ -51,6 +55,7 @@ class MyHomePage extends StatelessWidget {
 
             RaisedButton(
               child: Text("Navegar para o adicionar"),
+              color: ColorPalette.secondaryColor,
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (BuildContext context) => MyQuestionPage()
