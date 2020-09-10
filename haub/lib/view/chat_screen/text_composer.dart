@@ -14,10 +14,6 @@ class _TextComposerState extends State<TextComposer> {
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 8),
         child: Row(children: <Widget>[
-          IconButton(
-            icon: Icon(Icons.photo_camera),
-            onPressed: () {},
-          ),
           Expanded(
             child: TextField(
               decoration:
