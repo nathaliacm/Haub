@@ -18,7 +18,7 @@ class MyOnboardPage extends StatelessWidget {
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(
               builder: (BuildContext context) => MaterialApp(
-                home: MyHomePage(),
+                home:  MyHomePageWidget(),
               )
           ));
         }),
