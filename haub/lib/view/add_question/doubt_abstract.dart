@@ -13,14 +13,13 @@ class MyDaubtAbstractPage extends StatelessWidget {
       ),
       body: Center(
         child: RaisedButton(
-          child: Text("Finalizar"),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(
-              builder: (BuildContext context) => MaterialApp(
-                home:  MyHomePageWidget(),
-              )
-          ));
-        }),
+            child: Text("Finalizar"),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => MyHomePageWidget()));
+            }),
       ),
     );
   }
