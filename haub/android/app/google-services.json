@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "514627084704",
+    "firebase_url": "https://haub-39504.firebaseio.com",
+    "project_id": "haub-39504",
+    "storage_bucket": "haub-39504.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514627084704:android:e31e1977ebf8f9ee8444c5",
+        "android_client_info": {
+          "package_name": "br.com.haubinhos.haub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "514627084704-jeik1r1o8apj6et5aer8disjonsoceu7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.haubinhos.haub",
+            "certificate_hash": "8150c007e8cdd6c34876d9031e416d4363511c10"
+          }
+        },
+        {
+          "client_id": "514627084704-ler646b315k07vcadtj59r4hf582kl34.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_zH9a7HxrohaZkJyLXlp81-GpTedMETE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "514627084704-ler646b315k07vcadtj59r4hf582kl34.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
