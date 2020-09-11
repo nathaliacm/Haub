@@ -1,4 +1,4 @@
-package com.example.haub
+package br.com.haubinhos.haub
 
 import io.flutter.embedding.android.FlutterActivity
 
