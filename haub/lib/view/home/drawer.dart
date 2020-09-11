@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'package:haub/view/perfil/profile.dart';
-import '../../main.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
