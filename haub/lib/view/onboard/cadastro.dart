@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haub/models/colorPalette.dart';
 
-import '../../main.dart';
-
 class MyRegisterPage extends StatelessWidget {
   MyRegisterPage({Key key}) : super(key: key);
 

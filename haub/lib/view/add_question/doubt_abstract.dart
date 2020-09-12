@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haub/models/appBar.dart';
 
-import '../../main.dart';
 
 class MyDaubtAbstractPage extends StatelessWidget {
   MyDaubtAbstractPage({Key key}) : super(key: key);
@@ -14,10 +13,9 @@ class MyDaubtAbstractPage extends StatelessWidget {
         child: RaisedButton(
             child: Text("Finalizar"),
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => MyHomePageWidget()));
+              Navigator.popUntil(
+                context, 
+                ModalRoute.withName('/home'));
             }),
       ),
     );

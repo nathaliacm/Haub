@@ -13,7 +13,7 @@ class _LoginScreenState extends State<MyLoginPage> {
   final _passController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  //final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
