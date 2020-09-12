@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haub/models/appBar.dart';
 
 import '../../main.dart';
 
@@ -8,9 +9,7 @@ class MyDaubtAbstractPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Haub Question abstract'),
-      ),
+      appBar: CircularAppBar("Haub Question abstract", 60, true, 20),
       body: Center(
         child: RaisedButton(
             child: Text("Finalizar"),

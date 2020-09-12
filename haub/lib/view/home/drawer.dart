@@ -65,8 +65,9 @@ class MyDrawer extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children:[
-               Padding(
+               Container(
                 padding: EdgeInsets.only(top: 300),
+                width: 260,
                 child: RaisedButton(
                   splashColor: ColorPalette.primaryColor,
                   color: ColorPalette.secondaryColor,

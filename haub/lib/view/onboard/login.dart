@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haub/models/appBar.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'package:haub/view/onboard/cadastro.dart';
 
@@ -18,12 +19,7 @@ class _LoginScreenState extends State<MyLoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _formKey,
-      appBar: AppBar(
-        title: Text("Haub", style: TextStyle(fontSize: 30),),
-        centerTitle: true,
-        backgroundColor: ColorPalette.primaryColor,
-        toolbarHeight: 120,
-      ),
+      appBar: CircularAppBar('Haub', 140, true, 34),
       body: SingleChildScrollView(
         child: Column(
           children: [
