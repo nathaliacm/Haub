@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:haub/view/add_question/question_page.dart';
 import 'package:haub/view/chat_screen/chat_screen.dart';
@@ -6,7 +7,9 @@ import 'package:haub/view/onboard/cadastro.dart';
 import 'package:haub/view/onboard/login.dart';
 import 'models/colorPalette.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 /// This Widget is the main application widget.
 class MyApp extends StatelessWidget {
