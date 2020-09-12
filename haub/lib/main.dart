@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:haub/view/add_question/question_page.dart';
 import 'package:haub/view/chat_screen/chat_screen.dart';
 import 'package:haub/view/home/drawer.dart';
+import 'package:haub/view/onboard/cadastro.dart';
+import 'package:haub/view/onboard/login.dart';
 import 'models/colorPalette.dart';
 
 void main() => runApp(MyApp());
@@ -14,7 +16,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: _title,
-      home: MyHomePageWidget(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MyLoginPage(),
+        '/home': (context) => MyHomePageWidget(),
+        '/cadastro': (context) => MyRegisterPage(),
+      },
+      //MyHomePageWidget(),
     );
   }
 }
@@ -40,8 +48,13 @@ class MyHomePageWidget extends StatelessWidget {
                     bottomRight: Radius.circular(30))),
             actions: <Widget>[
               IconButton(
-                icon: const Icon(Icons.search),
-                onPressed: () {},
+                icon: const Icon(Icons.account_circle),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => MyLoginPage()));
+                },
               ),
             ],
           ),
