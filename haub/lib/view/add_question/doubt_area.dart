@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haub/models/appBar.dart';
 
 import 'doubt_level.dart';
 
@@ -8,9 +9,7 @@ class MyDaubtAreaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Haub Question area'),
-      ),
+    appBar: CircularAppBar("Haub Question área", 60, true, 20),
       body: Center(
         child: RaisedButton(
           child: Text("Navegar para o nivel da dúvida"),
