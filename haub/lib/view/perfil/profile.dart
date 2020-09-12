@@ -11,6 +11,14 @@ class MyProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Haub perfil'),
         backgroundColor: ColorPalette.primaryColor,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {Navigator.popUntil(context, ModalRoute.withName('/home'));}
+            );
+          },
+        ),
       ),
       body: Center(
         child: RaisedButton(

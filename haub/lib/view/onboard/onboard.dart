@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
+import 'package:haub/view/home/home.dart';
 
 class MyOnboardPage extends StatelessWidget {
   MyOnboardPage({Key key}) : super(key: key);
