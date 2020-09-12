@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: _title,
       initialRoute: '/',
       routes: {
-        '/': (context) =>  MyLoginPage(),
+        '/': (context) => MyLoginPage(),
         '/home': (context) => MyHomePageWidget(),
         '/cadastro': (context) => MyRegisterPage(),
       },
@@ -34,20 +34,33 @@ class MyHomePageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: ColorPalette.primaryColor,
-          title: const Text('Haub home'),
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.account_circle),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => MyLoginPage()));
-              },
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(100.0),
+          child: AppBar(
+            backgroundColor: ColorPalette.primaryColor,
+            title: const Text(
+              'Haub',
+              style: TextStyle(
+                fontSize: 34,
+                fontWeight: FontWeight.w500,
+              ),
             ),
-          ],
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30))),
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.account_circle),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => MyLoginPage()));
+                },
+              ),
+            ],
+          ),
         ),
         drawer: MyDrawer(),
         body: Center(
@@ -76,6 +89,28 @@ class MyHomePageWidget extends StatelessWidget {
             ],
           ),
         ),
-    );
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: ColorPalette.secondaryColor,
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => MyQuestionPage()));
+          },
+          tooltip: 'Increment',
+          child: Icon(Icons.add),
+          elevation: 2.0,
+        ),
+        bottomNavigationBar: BottomAppBar(
+            shape: CircularNotchedRectangle(),
+            notchMargin: 7.0,
+            color: ColorPalette.primaryColor,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(12, 30, 12, 10),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+              ),
+            )));
   }
 }
