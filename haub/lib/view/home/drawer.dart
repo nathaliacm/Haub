@@ -58,6 +58,7 @@ class MyDrawer extends StatelessWidget {
             )
           ),
           CustomListTile(Icons.account_circle, 'Perfil', (){
+              Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(
               builder: (BuildContext context) =>  MyProfileScreen()));
           }),
@@ -71,7 +72,7 @@ class MyDrawer extends StatelessWidget {
                   splashColor: ColorPalette.primaryColor,
                   color: ColorPalette.secondaryColor,
                   child: Text("Sair"),
-                  onPressed: (){},
+                  onPressed: (){Navigator.pushReplacementNamed(context, '/');}
                 ),
               ),
             ],
@@ -83,9 +84,9 @@ class MyDrawer extends StatelessWidget {
 }
 
 class CustomListTile extends StatelessWidget {
-  IconData icon;
-  String text;
-  Function onTap;
+  final IconData icon;
+  final String text;
+  final Function onTap;
 
   CustomListTile(this.icon, this.text, this.onTap);
 
