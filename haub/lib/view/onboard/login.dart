@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:haub/models/appBar.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'package:haub/view/onboard/cadastro.dart';
+import 'package:haub/firebase_tools/usuario.dart';
 
 class MyLoginPage extends StatefulWidget {
   @override
@@ -47,15 +48,17 @@ class _LoginScreenState extends State<MyLoginPage> {
                   TextField(
                     controller: _passController,
                     decoration: InputDecoration(hintText: "Senha"),
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.visiblePassword,
                     obscureText: true,
                   ),
                   Align(
                     alignment: Alignment.centerRight,
                     child: FlatButton(
-                      onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(
-                        builder: (BuildContext context) =>  MyRegisterPage()));
+                      onPressed: () async {
+                        if (await Usuario().fazerLogin()) {
+                          Navigator.push(context, MaterialPageRoute(
+                          builder: (BuildContext context) =>  MyRegisterPage()));
+                        }
                       },
                       child: Text("Cadastre-se",
                         textAlign: TextAlign.right,
@@ -67,8 +70,11 @@ class _LoginScreenState extends State<MyLoginPage> {
                     width: (MediaQuery.of(context).size.width),
                     child: RaisedButton(
                       color: ColorPalette.secondaryColor,
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/home');
+                      onPressed: () async {
+                        if (await Usuario().fazerLogin()) {
+                          Navigator.push(context, MaterialPageRoute(
+                          builder: (BuildContext context) =>  MyRegisterPage()));
+                        }
                       },
                       child: Text(
                         "Entrar",

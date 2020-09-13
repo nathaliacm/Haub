@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'package:haub/view/perfil/profile.dart';
+import 'package:haub/main.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -34,13 +36,21 @@ class MyDrawer extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                   Text(
-                  '<Nome>',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25,
-                    ),
-                  ),
+                    StreamBuilder<User> (
+                      stream: FirebaseAuth.instance.authStateChanges(),
+                      builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+                        if (snapshot.hasData) {
+                          return Text(snapshot.data.uid,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25,
+                            ),
+                          );
+                        } else {
+                          return Text('');
+                        }
+                      }
+                    )
                   ],
                 ),
                 Row(
@@ -73,7 +83,9 @@ class MyDrawer extends StatelessWidget {
                   splashColor: ColorPalette.primaryColor,
                   color: ColorPalette.secondaryColor,
                   child: Text("Sair"),
-                  onPressed: (){Navigator.pushReplacementNamed(context, '/');}
+                  onPressed: (){
+                    userFinal.fazerLogout();
+                    Navigator.pushReplacementNamed(context, '/');}
                 ),
               ),
             ],
