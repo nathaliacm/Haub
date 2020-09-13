@@ -22,7 +22,14 @@ class MyChatPage extends StatelessWidget {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-              TextComposer(),
+              Center(
+                  child: Ink(
+                      decoration: ShapeDecoration(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0))),
+                          color: ColorPalette.primaryColor),
+                      child: TextComposer()))
             ])));
   }
 }
