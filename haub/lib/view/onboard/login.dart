@@ -3,7 +3,6 @@ import 'package:haub/main.dart';
 import 'package:haub/models/appBar.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'package:haub/view/onboard/cadastro.dart';
-import 'package:haub/firebase_tools/usuario.dart';
 
 class MyLoginPage extends StatefulWidget {
   @override
@@ -72,10 +71,14 @@ class _LoginScreenState extends State<MyLoginPage> {
                     child: RaisedButton(
                       color: ColorPalette.secondaryColor,
                       onPressed: () async {
-                        if (await userFinal.fazerLogin()) {
-                          Navigator.push(context, MaterialPageRoute(
-                          builder: (BuildContext context) =>  MyRegisterPage()));
+                        await userFinal.fazerLogin();
+                        if (!await userFinal.jaCadastrado()) {
+                          userFinal.email = 'renan.coelho.p@gmail.com';
+                          userFinal.interesses = {'matematica':'40'};
+                          userFinal.cadastrar();
                         }
+                        Navigator.push(context, MaterialPageRoute(
+                        builder: (BuildContext context) =>  MyRegisterPage()));
                       },
                       child: Text(
                         "Entrar",

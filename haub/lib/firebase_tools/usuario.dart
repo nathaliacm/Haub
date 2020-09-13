@@ -36,7 +36,9 @@ class Usuario {
     
     _usuario = googleUserCredential.user;
     
-    await _fetchUserMetaData();
+    if (await jaCadastrado()) {
+      await _fetchUserMetaData();
+    }
 
     return _usuario != null;
   }
@@ -72,11 +74,11 @@ class Usuario {
 
   Future<bool> fazerLogin() async {
   print('user is connected from fetchmetadata: ${estaConectado()}');
-    //if(!estaConectado()) {
+    if(!estaConectado()) {
       return _fazerLoginGoogle();
-    /*} else {
+    } else {
       return false;
-    }*/
+    }
   }
 
   Future<bool> fazerLogout() async {
