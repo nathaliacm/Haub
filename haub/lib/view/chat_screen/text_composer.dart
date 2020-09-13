@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haub/models/colorPalette.dart';
+import 'icon_with_background.dart';
 
 class TextComposer extends StatefulWidget {
   @override
@@ -7,8 +8,6 @@ class TextComposer extends StatefulWidget {
 }
 
 class _TextComposerState extends State<TextComposer> {
-  bool _isComposing = false;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,21 +15,17 @@ class _TextComposerState extends State<TextComposer> {
         child: Row(children: <Widget>[
           Expanded(
             child: TextField(
-              decoration:
-                  InputDecoration.collapsed(hintText: 'Digite uma mensagem'),
-              onChanged: (text) {
-                setState(() {
-                  _isComposing = text.isNotEmpty;
-                });
-              },
+              cursorColor: ColorPalette.secondaryColor,
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration.collapsed(
+                  hintStyle:
+                      TextStyle(color: ColorPalette.placeHolderTextColor),
+                  hintText: 'Digite uma mensagem'),
+              onChanged: (text) {},
               onSubmitted: (text) {},
             ),
           ),
-          IconButton(
-            color: ColorPalette.secondaryColor,
-            icon: Icon(Icons.send),
-            onPressed: _isComposing ? () {} : null,
-          )
+          IconWithBackground(),
         ]));
   }
 }
