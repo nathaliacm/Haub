@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haub/main.dart';
 import 'package:haub/models/appBar.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'package:haub/view/onboard/cadastro.dart';
@@ -55,7 +56,7 @@ class _LoginScreenState extends State<MyLoginPage> {
                     alignment: Alignment.centerRight,
                     child: FlatButton(
                       onPressed: () async {
-                        if (await Usuario().fazerLogin()) {
+                        if (await userFinal.fazerLogin()) {
                           Navigator.push(context, MaterialPageRoute(
                           builder: (BuildContext context) =>  MyRegisterPage()));
                         }
@@ -71,7 +72,7 @@ class _LoginScreenState extends State<MyLoginPage> {
                     child: RaisedButton(
                       color: ColorPalette.secondaryColor,
                       onPressed: () async {
-                        if (await Usuario().fazerLogin()) {
+                        if (await userFinal.fazerLogin()) {
                           Navigator.push(context, MaterialPageRoute(
                           builder: (BuildContext context) =>  MyRegisterPage()));
                         }

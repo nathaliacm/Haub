@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -43,6 +42,7 @@ class Usuario {
   }
 
   Future<void> _fetchUserMetaData() async {
+    print('user is connected from fetchmetadata: ${_usuario!=null}');
     if (_usuario != null) {
       FirebaseFirestore.instance.collection('users').doc(id()).get().then(
         (DocumentSnapshot userData) {
@@ -71,8 +71,7 @@ class Usuario {
   }
 
   Future<bool> fazerLogin() async {
-    print(estaConectado());
-
+  print('user is connected from fetchmetadata: ${estaConectado()}');
     //if(!estaConectado()) {
       return _fazerLoginGoogle();
     /*} else {
@@ -81,8 +80,7 @@ class Usuario {
   }
 
   Future<bool> fazerLogout() async {
-    print(estaConectado());
-
+    print('user is connected from fetchmetadata: ${estaConectado()}');
     if(estaConectado()) {
       await FirebaseAuth.instance.signOut();
       await GoogleSignIn().signOut();
