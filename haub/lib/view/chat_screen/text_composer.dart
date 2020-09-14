@@ -2,12 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:haub/models/colorPalette.dart';
 
 class TextComposer extends StatefulWidget {
+  TextComposer(this.sendMessage);
+  final Function(String) sendMessage;
+
   @override
   _TextComposerState createState() => _TextComposerState();
 }
 
 class _TextComposerState extends State<TextComposer> {
   bool _isComposing = false;
+  final TextEditingController _controller = TextEditingController();
+  void _reset() {
+    _controller.clear();
+    setState(() {
+      _isComposing = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,21 +26,36 @@ class _TextComposerState extends State<TextComposer> {
         child: Row(children: <Widget>[
           Expanded(
             child: TextField(
-              decoration:
-                  InputDecoration.collapsed(hintText: 'Digite uma mensagem'),
+              controller: _controller,
+              cursorColor: ColorPalette.secondaryColor,
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration.collapsed(
+                  hintStyle:
+                      TextStyle(color: ColorPalette.placeHolderTextColor),
+                  hintText: 'Digite uma mensagem'),
               onChanged: (text) {
                 setState(() {
                   _isComposing = text.isNotEmpty;
                 });
               },
-              onSubmitted: (text) {},
+              onSubmitted: (text) {
+                widget.sendMessage(text);
+                _reset();
+              },
             ),
           ),
-          IconButton(
-            color: ColorPalette.secondaryColor,
-            icon: Icon(Icons.send),
-            onPressed: _isComposing ? () {} : null,
-          )
+          CircleAvatar(
+              radius: 20,
+              backgroundColor: ColorPalette.secondaryColor,
+              child: IconButton(
+                icon: Icon(Icons.send, color: Colors.white),
+                onPressed: _isComposing
+                    ? () {
+                        widget.sendMessage(_controller.text);
+                        _reset();
+                      }
+                    : null,
+              )),
         ]));
   }
 }

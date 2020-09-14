@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:haub/models/appBar.dart';
-
+import 'package:haub/models/dropDownButtomPages.dart';
 import 'doubt_level.dart';
 
 class MyDaubtAreaPage extends StatelessWidget {
@@ -8,17 +7,11 @@ class MyDaubtAreaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-    appBar: CircularAppBar("Haub Question área", 60, true, 20),
-      body: Center(
-        child: RaisedButton(
-          child: Text("Navegar para o nivel da dúvida"),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(
-              builder: (BuildContext context) =>  MyDaubtLevelPage()
-          ));
-        }),
-      ),
+    return Container(
+      child: DropDownPage(['Física','Matemática','Português','História','inglês','Geográfia','Química','Sociologia','Filosofia'], 
+          "Selecione a área de sua dúvida",
+          (){Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => MyDaubtLevelPage()));}
+        ),
     );
   }
 }
