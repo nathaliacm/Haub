@@ -73,6 +73,7 @@ class _LoginScreenState extends State<MyLoginPage> {
                       onPressed: () async {
                         await Usuario.fazerLogin();
                         if (!await Usuario.jaCadastrado()) {
+                          await Usuario.cadastrar();
                           Navigator.push(context, MaterialPageRoute(builder: (context) => MyRegisterPage()));
                         } else {
                           Navigator.pushReplacementNamed(context, '/home');
