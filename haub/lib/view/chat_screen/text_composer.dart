@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:haub/models/colorPalette.dart';
 
 class TextComposer extends StatefulWidget {
+  final Function(String) sendMessage;
+  
   TextComposer(this.sendMessage);
-  Function(String) sendMessage;
 
   @override
   _TextComposerState createState() => _TextComposerState();
