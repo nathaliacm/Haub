@@ -72,7 +72,7 @@ class MyDrawer extends StatelessWidget {
                 child: RaisedButton(
                   splashColor: ColorPalette.primaryColor,
                   color: ColorPalette.secondaryColor,
-                  child: Text("Sair"),
+                  child: Text("Sair", style: (TextStyle(color: Colors.white)),),
                   onPressed: (){Navigator.pushReplacementNamed(context, '/');}
                 ),
               ),

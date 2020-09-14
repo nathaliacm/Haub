@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:haub/models/appBar.dart';
 import 'package:haub/models/colorPalette.dart';
+import 'package:haub/models/raisedButton.dart';
 import 'doubt_area.dart';
 
 class MyQuestionPage extends StatelessWidget {
@@ -15,11 +16,11 @@ class MyQuestionPage extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(bottom: 15),
+                padding: EdgeInsets.all(15),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Qual sua dúvida?"),
+                    Text("Qual sua dúvida?", style: TextStyle(fontSize: 20)),
                   ],
                 ),
               ),
@@ -38,20 +39,10 @@ class MyQuestionPage extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(top: 40),
                 width: 200,
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                MyDaubtAreaPage()));
-                  },
-                  color: ColorPalette.secondaryColor,
-                  child: Text("Avançar"),
+                child: MyRaisedButton((){Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => MyDaubtAreaPage()));},"Avançar")
                 ),
-              ),
             ],
           ),
           padding: EdgeInsets.only(top: 100, right: 20, left: 20),
