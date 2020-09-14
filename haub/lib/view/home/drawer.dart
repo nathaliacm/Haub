@@ -2,10 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'package:haub/view/perfil/profile.dart';
-import 'package:haub/main.dart';
+import 'package:haub/firebase_tools/usuario.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
+
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
@@ -39,16 +40,21 @@ class MyDrawer extends StatelessWidget {
                     StreamBuilder<User> (
                       stream: FirebaseAuth.instance.authStateChanges(),
                       builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+                        String nomeUsuario = '';
+
                         if (snapshot.hasData) {
-                          return Text(snapshot.data.uid,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                            ),
-                          );
+                          nomeUsuario = Usuario.nome;
                         } else {
-                          return Text('');
+                          nomeUsuario = '<Usuário Não Logado>';
                         }
+
+                        return Text(
+                          nomeUsuario,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                          ),
+                        );
                       }
                     )
                   ],
@@ -82,15 +88,10 @@ class MyDrawer extends StatelessWidget {
                 child: RaisedButton(
                   splashColor: ColorPalette.primaryColor,
                   color: ColorPalette.secondaryColor,
-<<<<<<< HEAD
                   child: Text("Sair"),
                   onPressed: (){
-                    userFinal.fazerLogout();
+                    Usuario.fazerLogout();
                     Navigator.pushReplacementNamed(context, '/');}
-=======
-                  child: Text("Sair", style: (TextStyle(color: Colors.white)),),
-                  onPressed: (){Navigator.pushReplacementNamed(context, '/');}
->>>>>>> developer
                 ),
               ),
             ],

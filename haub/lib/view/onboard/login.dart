@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:haub/main.dart';
+import 'package:haub/firebase_tools/usuario.dart';
 import 'package:haub/models/appBar.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'package:haub/view/onboard/cadastro.dart';
@@ -55,7 +55,7 @@ class _LoginScreenState extends State<MyLoginPage> {
                     alignment: Alignment.centerRight,
                     child: FlatButton(
                       onPressed: () async {
-                        if (await userFinal.fazerLogin()) {
+                        if (await Usuario.fazerLogin()) {
                           Navigator.push(context, MaterialPageRoute(
                           builder: (BuildContext context) =>  MyRegisterPage()));
                         }
@@ -71,14 +71,12 @@ class _LoginScreenState extends State<MyLoginPage> {
                     child: RaisedButton(
                       color: ColorPalette.secondaryColor,
                       onPressed: () async {
-                        await userFinal.fazerLogin();
-                        if (!await userFinal.jaCadastrado()) {
-                          userFinal.email = 'renan.coelho.p@gmail.com';
-                          userFinal.interesses = {'matematica':'40'};
-                          userFinal.cadastrar();
+                        await Usuario.fazerLogin();
+                        if (!await Usuario.jaCadastrado()) {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => MyRegisterPage()));
+                        } else {
+                          Navigator.pushReplacementNamed(context, '/home');
                         }
-                        Navigator.push(context, MaterialPageRoute(
-                        builder: (BuildContext context) =>  MyRegisterPage()));
                       },
                       child: Text(
                         "Entrar",

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:haub/firebase_tools/usuario.dart';
 import 'package:haub/view/home/home.dart';
 import 'package:haub/view/onboard/cadastro.dart';
 import 'package:haub/view/onboard/login.dart';
 import 'package:firebase_core/firebase_core.dart';
-
-final Usuario userFinal = new Usuario();
 
 void main() {
   runApp(MyApp());

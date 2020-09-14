@@ -4,23 +4,23 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Usuario {
-  User _usuario;
-  String nome;
-  String email;
-  Map<String, dynamic> interesses;
-  String id() => _usuario.uid;
+  static User _usuario;
+  static String nome;
+  static String email;
+  static Map<String, dynamic> interesses;
+  static String id() => _usuario.uid;
 
-  bool estaConectado() {
+  static bool estaConectado() {
     return (FirebaseAuth.instance.currentUser != null);
   }
 
-  Future<bool> jaCadastrado() {
+  static Future<bool> jaCadastrado() {
       return FirebaseFirestore.instance.collection('users').doc(id()).get().then(
         (usuario) => usuario.exists
       );
   }
 
-  Future<bool> _fazerLoginGoogle() async {
+  static Future<bool> _fazerLoginGoogle() async {
     // Trigger the Google Authentication flow.
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
     // Obtain the auth details from the request.
@@ -43,7 +43,7 @@ class Usuario {
     return _usuario != null;
   }
 
-  Future<void> _fetchUserMetaData() async {
+  static Future<void> _fetchUserMetaData() async {
     print('user is connected from fetchmetadata: ${_usuario!=null}');
     if (_usuario != null) {
       FirebaseFirestore.instance.collection('users').doc(id()).get().then(
@@ -56,7 +56,7 @@ class Usuario {
     }
   }
 
-  Future<void> _pushUserMetaData() async {
+  static Future<void> _pushUserMetaData() async {
     if (_usuario != null) {
       await FirebaseFirestore.instance.collection('users').doc(id()).set(
         {
@@ -72,8 +72,8 @@ class Usuario {
     }
   }
 
-  Future<bool> fazerLogin() async {
-  print('user is connected from fetchmetadata: ${estaConectado()}');
+  static Future<bool> fazerLogin() async {
+    print('user is connected from fetchmetadata: ${estaConectado()}');
     if(!estaConectado()) {
       return _fazerLoginGoogle();
     } else {
@@ -81,7 +81,7 @@ class Usuario {
     }
   }
 
-  Future<bool> fazerLogout() async {
+  static Future<bool> fazerLogout() async {
     print('user is connected from fetchmetadata: ${estaConectado()}');
     if(estaConectado()) {
       await FirebaseAuth.instance.signOut();
@@ -90,7 +90,7 @@ class Usuario {
     } else {return false;}
   }
 
-  Future<bool> cadastrar() async {
+  static Future<bool> cadastrar() async {
     if (!estaConectado() | await jaCadastrado()) {
       return false;
     }
