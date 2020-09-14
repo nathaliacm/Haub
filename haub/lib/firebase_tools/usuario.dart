@@ -8,14 +8,15 @@ class Usuario {
   static String nome;
   static String email;
   static Map<String, dynamic> interesses;
-  static String id() => _usuario.uid;
+
+  static String get id => _usuario.uid;
 
   static bool estaConectado() {
     return (FirebaseAuth.instance.currentUser != null);
   }
 
   static Future<bool> jaCadastrado() {
-      return FirebaseFirestore.instance.collection('users').doc(id()).get().then(
+      return FirebaseFirestore.instance.collection('users').doc(id).get().then(
         (usuario) => usuario.exists
       );
   }
@@ -38,6 +39,9 @@ class Usuario {
     
     if (await jaCadastrado()) {
       await _fetchUserMetaData();
+    } else {
+      email = _usuario.email;
+      nome = _usuario.displayName;
     }
 
     return _usuario != null;
@@ -46,7 +50,7 @@ class Usuario {
   static Future<void> _fetchUserMetaData() async {
     print('user is connected from fetchmetadata: ${_usuario!=null}');
     if (_usuario != null) {
-      FirebaseFirestore.instance.collection('users').doc(id()).get().then(
+      FirebaseFirestore.instance.collection('users').doc(id).get().then(
         (DocumentSnapshot userData) {
           email = userData.data()['email'];
           nome = userData.data()['nome'];
@@ -58,9 +62,9 @@ class Usuario {
 
   static Future<void> _pushUserMetaData() async {
     if (_usuario != null) {
-      await FirebaseFirestore.instance.collection('users').doc(id()).set(
+      await FirebaseFirestore.instance.collection('users').doc(id).set(
         {
-          'id':id(),
+          'id':id,
           'email':email,
           'nome':nome,
           'interesses':interesses

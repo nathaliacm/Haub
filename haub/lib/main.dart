@@ -25,7 +25,6 @@ class MyApp extends StatelessWidget {
             '/home': (context) => MyHomePageWidget(),
             '/cadastro': (context) => MyRegisterPage(),
           },
-          //MyHomePageWidget(),
         );
       }
     );
