@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:haub/firebase_tools/usuario.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'text_composer.dart';
 import 'constants.dart';
@@ -8,7 +9,8 @@ class MyChatPage extends StatelessWidget {
   MyChatPage({Key key}) : super(key: key);
 
   void _sendMessage(String text) {
-    Firestore.instance.collection('messages').add({'text': text});
+    FirebaseFirestore.instance.collection('messages').add(
+        {'sender': Usuario.nome, 'text': text, 'timestamp': DateTime.now()});
   }
 
   @override
@@ -37,7 +39,10 @@ class MyChatPage extends StatelessWidget {
                 children: <Widget>[
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
-                  stream: Firestore.instance.collection('messages').snapshots(),
+                  stream: FirebaseFirestore.instance
+                      .collection('messages')
+                      .orderBy('timestamp', descending: true)
+                      .snapshots(),
                   builder: (context, snapshot) {
                     switch (snapshot.connectionState) {
                       case ConnectionState.none:
@@ -47,13 +52,13 @@ class MyChatPage extends StatelessWidget {
                         );
                       default:
                         List<DocumentSnapshot> documents =
-                            snapshot.data.documents.reversed.toList();
+                            snapshot.data.docs.toList();
                         return ListView.builder(
                             itemCount: documents.length,
                             reverse: true,
                             itemBuilder: (context, index) {
                               return ListTile(
-                                title: Text(documents[index].data['text']),
+                                title: Text(documents[index].data()['text']),
                               );
                             });
                     }
