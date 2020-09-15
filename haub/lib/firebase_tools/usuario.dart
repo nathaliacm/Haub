@@ -1,24 +1,46 @@
 import 'dart:async';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Usuario {
+abstract class Usuario {
   static User _usuario;
+  static String get id {
+    if (_usuario != null){
+      return _usuario.uid;
+    } else {
+      return '';
+    }
+  }
+  static String get email {
+    if (_usuario != null){
+      return _usuario.email;
+    } else {
+      return '';
+    }
+  }
   static String nome;
-  static String email;
   static Map<String, dynamic> interesses;
 
-  static String get id => _usuario.uid;
+  static Future<void> inicializar() async {
+    Firebase.initializeApp();
+    FirebaseAuth.instance.authStateChanges().listen((user) {_usuario = user;});
+  }
 
   static bool estaConectado() {
-    return (FirebaseAuth.instance.currentUser != null);
+    return (_usuario != null);
   }
 
   static Future<bool> jaCadastrado() {
       return FirebaseFirestore.instance.collection('users').doc(id).get().then(
         (usuario) => usuario.exists
       );
+  }
+
+  static Future<bool> cadastrar() {
+    _pushUserMetaData();
+    return jaCadastrado();
   }
 
   static Future<bool> _fazerLoginGoogle() async {
@@ -34,35 +56,36 @@ class Usuario {
     // Sign in to Firebase with the Google [UserCredential].
     final UserCredential googleUserCredential =
       await FirebaseAuth.instance.signInWithCredential(googleCredential);
-    
     _usuario = googleUserCredential.user;
     
-    if (await jaCadastrado()) {
-      await _fetchUserMetaData();
-    } else {
-      email = _usuario.email;
-      nome = _usuario.displayName;
+    if (_usuario != null) {
+      if (!await jaCadastrado()) {
+        nome = _usuario.displayName;
+        interesses = null;
+      }
     }
+    _fetchUserMetaData();
 
-    return _usuario != null;
+    return (_usuario != null);
   }
 
   static Future<void> _fetchUserMetaData() async {
-    print('user is connected from fetchmetadata: ${_usuario!=null}');
-    if (_usuario != null) {
+    if ((_usuario != null) & (id != '')) {
       FirebaseFirestore.instance.collection('users').doc(id).get().then(
         (DocumentSnapshot userData) {
-          email = userData.data()['email'];
           nome = userData.data()['nome'];
           interesses = userData.data()['interesses'];
         }
       );
+    } else {
+      nome = '';
+      interesses = null;
     }
   }
 
   static Future<void> _pushUserMetaData() async {
-    if (_usuario != null) {
-      await FirebaseFirestore.instance.collection('users').doc(id).set(
+    if (id != ''){
+      FirebaseFirestore.instance.collection('users').doc(id).set(
         {
           'id':id,
           'email':email,
@@ -70,35 +93,24 @@ class Usuario {
           'interesses':interesses
         }
       );
-      return true;
-    } else {
-      return false;
     }
   }
 
   static Future<bool> fazerLogin() async {
-    print('user is connected from fetchmetadata: ${estaConectado()}');
     if(!estaConectado()) {
       return _fazerLoginGoogle();
     } else {
-      return false;
+      await _fetchUserMetaData();
+      return (id != '');
     }
   }
 
   static Future<bool> fazerLogout() async {
-    print('user is connected from fetchmetadata: ${estaConectado()}');
     if(estaConectado()) {
       await FirebaseAuth.instance.signOut();
       await GoogleSignIn().signOut();
-      return true;
-    } else {return false;}
-  }
-
-  static Future<bool> cadastrar() async {
-    if (!estaConectado() | await jaCadastrado()) {
-      return false;
     }
-    _pushUserMetaData();
-    return true;
+    _fetchUserMetaData();
+    return (!estaConectado());
   }
 }

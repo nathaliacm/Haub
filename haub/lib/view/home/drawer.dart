@@ -89,8 +89,8 @@ class MyDrawer extends StatelessWidget {
                   splashColor: ColorPalette.primaryColor,
                   color: ColorPalette.secondaryColor,
                   child: Text("Sair"),
-                  onPressed: (){
-                    Usuario.fazerLogout();
+                  onPressed: () async {
+                    await Usuario.fazerLogout();
                     Navigator.pushReplacementNamed(context, '/');}
                 ),
               ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:haub/view/home/home.dart';
 import 'package:haub/view/onboard/cadastro.dart';
 import 'package:haub/view/onboard/login.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:haub/firebase_tools/usuario.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Firebase.initializeApp(),
+      future: Usuario.inicializar(),
       builder: (context, snapshot) {
         return MaterialApp(
           title: _title,
