@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'package:haub/view/perfil/profile.dart';
+import 'package:haub/firebase_tools/usuario.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
+
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
@@ -34,13 +37,26 @@ class MyDrawer extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                   Text(
-                  '<Nome>',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25,
-                    ),
-                  ),
+                    StreamBuilder<User> (
+                      stream: FirebaseAuth.instance.authStateChanges(),
+                      builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+                        String nomeUsuario = '';
+
+                        if (snapshot.hasData) {
+                          nomeUsuario = Usuario.nome;
+                        } else {
+                          nomeUsuario = '<Usuário Não Logado>';
+                        }
+
+                        return Text(
+                          nomeUsuario,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                          ),
+                        );
+                      }
+                    )
                   ],
                 ),
                 Row(
@@ -72,8 +88,10 @@ class MyDrawer extends StatelessWidget {
                 child: RaisedButton(
                   splashColor: ColorPalette.primaryColor,
                   color: ColorPalette.secondaryColor,
-                  child: Text("Sair", style: (TextStyle(color: Colors.white)),),
-                  onPressed: (){Navigator.pushReplacementNamed(context, '/');}
+                  child: Text("Sair"),
+                  onPressed: () async {
+                    await Usuario.fazerLogout();
+                    Navigator.pushReplacementNamed(context, '/');}
                 ),
               ),
             ],
