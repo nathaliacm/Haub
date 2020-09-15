@@ -71,13 +71,15 @@ abstract class Usuario {
   }
 
   static Future<void> _fetchUserMetaData() async {
-    if ((_usuario != null) & (id != '')) {
-      await FirebaseFirestore.instance.collection('users').doc(id).get().then(
-        (DocumentSnapshot userData) {
-          nome = userData.data()['nome'];
-          interesses = userData.data()['interesses'];
-        }
-      );
+    if (_usuario != null) {
+      if ((id != '') & (await jaCadastrado())) {
+        await FirebaseFirestore.instance.collection('users').doc(id).get().then(
+          (DocumentSnapshot userData) {
+            nome = userData.data()['nome'];
+            interesses = userData.data()['interesses'];
+          }
+        );
+      }
     } else {
       nome = '';
       interesses = null;
