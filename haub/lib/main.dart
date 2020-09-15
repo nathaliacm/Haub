@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       future: Usuario.inicializar(),
       builder: (context, snapshot) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: _title,
           initialRoute: '/',
           routes: {
