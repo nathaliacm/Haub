@@ -71,7 +71,7 @@ abstract class Usuario {
   }
 
   static Future<void> _fetchUserMetaData() async {
-    if ((_usuario != null) & (id != '')) {
+    if ((_usuario != null) & (id != '') & (await jaCadastrado())) {
       await FirebaseFirestore.instance.collection('users').doc(id).get().then(
         (DocumentSnapshot userData) {
           nome = userData.data()['nome'];
