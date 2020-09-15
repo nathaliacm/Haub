@@ -24,7 +24,7 @@ abstract class Usuario {
   static Map<String, dynamic> interesses;
 
   static Future<void> inicializar() async {
-    Firebase.initializeApp();
+    await Firebase.initializeApp();
     FirebaseAuth.instance.authStateChanges().listen((user) {_usuario = user;});
   }
 
@@ -32,15 +32,15 @@ abstract class Usuario {
     return (_usuario != null);
   }
 
-  static Future<bool> jaCadastrado() {
-      return FirebaseFirestore.instance.collection('users').doc(id).get().then(
+  static Future<bool> jaCadastrado() async {
+      return await FirebaseFirestore.instance.collection('users').doc(id).get().then(
         (usuario) => usuario.exists
       );
   }
 
-  static Future<bool> cadastrar() {
-    _pushUserMetaData();
-    return jaCadastrado();
+  static Future<bool> cadastrar() async {
+    await _pushUserMetaData();
+    return await jaCadastrado();
   }
 
   static Future<bool> _fazerLoginGoogle() async {
@@ -56,6 +56,7 @@ abstract class Usuario {
     // Sign in to Firebase with the Google [UserCredential].
     final UserCredential googleUserCredential =
       await FirebaseAuth.instance.signInWithCredential(googleCredential);
+
     _usuario = googleUserCredential.user;
     
     if (_usuario != null) {
@@ -64,14 +65,14 @@ abstract class Usuario {
         interesses = null;
       }
     }
-    _fetchUserMetaData();
+    await _fetchUserMetaData();
 
     return (_usuario != null);
   }
 
   static Future<void> _fetchUserMetaData() async {
     if ((_usuario != null) & (id != '')) {
-      FirebaseFirestore.instance.collection('users').doc(id).get().then(
+      await FirebaseFirestore.instance.collection('users').doc(id).get().then(
         (DocumentSnapshot userData) {
           nome = userData.data()['nome'];
           interesses = userData.data()['interesses'];
@@ -85,7 +86,7 @@ abstract class Usuario {
 
   static Future<void> _pushUserMetaData() async {
     if (id != ''){
-      FirebaseFirestore.instance.collection('users').doc(id).set(
+      await FirebaseFirestore.instance.collection('users').doc(id).set(
         {
           'id':id,
           'email':email,
@@ -97,20 +98,18 @@ abstract class Usuario {
   }
 
   static Future<bool> fazerLogin() async {
-    if(!estaConectado()) {
-      return _fazerLoginGoogle();
-    } else {
+    if (estaConectado()) {
       await _fetchUserMetaData();
-      return (id != '');
+      return true;
+    } else {
+      return await _fazerLoginGoogle();
     }
   }
 
   static Future<bool> fazerLogout() async {
-    if(estaConectado()) {
-      await FirebaseAuth.instance.signOut();
-      await GoogleSignIn().signOut();
-    }
-    _fetchUserMetaData();
+    await FirebaseAuth.instance.signOut();
+    await GoogleSignIn().signOut();
+    await _fetchUserMetaData();
     return (!estaConectado());
   }
 }
