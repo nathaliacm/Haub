@@ -47,7 +47,7 @@ class _DropDownState extends State<DropDownPage> {
                 ),
                 width: 310,
                 child: SingleChildScrollView(
-                  child: DropdownButton<String>(
+                  child: DropdownButton<String>(   
                       isExpanded: true,
                       items: widget.dropDownList.map((String dropDownStringItem) {
                         return DropdownMenuItem<String>(
