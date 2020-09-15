@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'text_composer.dart';
+import 'constants.dart';
 
 class MyChatPage extends StatelessWidget {
   MyChatPage({Key key}) : super(key: key);
@@ -17,10 +18,17 @@ class MyChatPage extends StatelessWidget {
           backgroundColor: ColorPalette.primaryColor,
           title: const Text('Haub chat'),
           actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.more_vert),
-              onPressed: () {},
-            ),
+            PopupMenuButton<String>(
+              onSelected: choiceAction,
+              itemBuilder: (BuildContext context) {
+                return Constants.choices.map((String choice) {
+                  return PopupMenuItem<String>(
+                    value: choice,
+                    child: Text(choice),
+                  );
+                }).toList();
+              },
+            )
           ],
         ),
         body: Center(
@@ -62,4 +70,8 @@ class MyChatPage extends StatelessWidget {
                       child: TextComposer(_sendMessage)))
             ])));
   }
+}
+
+void choiceAction(String choice) {
+  print('WORKIING');
 }
