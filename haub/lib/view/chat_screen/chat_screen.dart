@@ -4,6 +4,7 @@ import 'package:haub/firebase_tools/usuario.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'text_composer.dart';
 import 'constants.dart';
+import 'chat_message.dart';
 
 class MyChatPage extends StatelessWidget {
   MyChatPage({Key key}) : super(key: key);
@@ -57,9 +58,7 @@ class MyChatPage extends StatelessWidget {
                             itemCount: documents.length,
                             reverse: true,
                             itemBuilder: (context, index) {
-                              return ListTile(
-                                title: Text(documents[index].data()['text']),
-                              );
+                              return ChatMessage(documents[index].data(), true);
                             });
                     }
                   },
