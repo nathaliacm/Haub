@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:haub/models/appBar.dart';
+import 'package:haub/models/daubtClass.dart';
 import 'package:haub/models/raisedButton.dart';
 
 class MyDaubtAbstractPage extends StatelessWidget {
-  MyDaubtAbstractPage({Key key}) : super(key: key);
+  final Daubt questionStatus;
+  MyDaubtAbstractPage(this.questionStatus,{Key key}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +31,33 @@ class MyDaubtAbstractPage extends StatelessWidget {
                 ),
                 width: 310,
                 height: 180,
-                child: Center(
-                  child: Text("<Resumo>"),
-                ),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Sua duvida:",
+                        style: TextStyle(fontSize: 15)),
+
+                        Expanded(
+                          child:Scrollbar(
+                            child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child:Text("${questionStatus.daubtText}\n",
+                              style: TextStyle(fontSize: 15)),
+                            ),
+                          ), 
+                        ),
+                        
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 5),
+                          child: Text("A área da sua duvida: ${questionStatus.daubtArea}", style: TextStyle(fontSize: 15)),
+                        ),
+                        Text("O level da sua duvida: ${questionStatus.daubtLevel}", style: TextStyle(fontSize: 15)),
+                      ],
+                    ),
+                  ),
               ),
               Container(
                   padding: EdgeInsets.only(top: 40),
