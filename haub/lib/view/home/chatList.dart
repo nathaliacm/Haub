@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'package:haub/view/chat_screen/chat_screen.dart';
-// import 'package:haub/models/colorPalette.dart';
 
+// ignore: must_be_immutable
 class ChatListView extends StatelessWidget {
   List list;
   ChatListView(this.list);

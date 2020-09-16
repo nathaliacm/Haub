@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:haub/models/appBar.dart';
 import 'package:haub/models/chatPreview.dart';
 import 'package:haub/view/add_question/question_page.dart';
-import 'package:haub/view/chat_screen/chat_screen.dart';
 import 'package:haub/view/home/chatList.dart';
 import 'package:haub/view/home/drawer.dart';
 import 'package:haub/models/colorPalette.dart';
@@ -34,7 +33,6 @@ class MyHomePageWidget extends StatelessWidget {
           false;
     }
 
-    List<ChatPreview> list = ChatPreview.list;
     return WillPopScope(
         onWillPop: _alertBeforeClosing,
         child: DefaultTabController(
