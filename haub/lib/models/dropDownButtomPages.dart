@@ -6,16 +6,17 @@ class DropDownPage extends StatefulWidget {
   final List<String> dropDownList;
   final String textBeforeBox;
   final Function onPressedFunction;
+  final String buttomText;
 
-  DropDownPage(this.dropDownList, this.textBeforeBox, this.onPressedFunction);
+  DropDownPage(this.dropDownList, this.textBeforeBox, this.onPressedFunction,
+      this.buttomText);
   @override
-  _DropDownState createState() => _DropDownState();
+  DropDownState createState() => DropDownState();
 }
-
-class _DropDownState extends State<DropDownPage> {
-
+class DropDownState extends State<DropDownPage> {
   String nomeAreaProficiencia = "";
   var _selectedDropDownItem;
+  static String dropDownSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +48,10 @@ class _DropDownState extends State<DropDownPage> {
                 ),
                 width: 310,
                 child: SingleChildScrollView(
-                  child: DropdownButton<String>(   
+                  child: DropdownButton<String>(
                       isExpanded: true,
-                      items: widget.dropDownList.map((String dropDownStringItem) {
+                      items:
+                          widget.dropDownList.map((String dropDownStringItem) {
                         return DropdownMenuItem<String>(
                           value: dropDownStringItem,
                           child: Padding(
@@ -64,7 +66,8 @@ class _DropDownState extends State<DropDownPage> {
                           this._selectedDropDownItem = novoItemSelecionado;
                         });
                       },
-                      value: _selectedDropDownItem),
+                      value: _selectedDropDownItem,
+                    ),
                 ),
               ),
             ],
@@ -72,7 +75,8 @@ class _DropDownState extends State<DropDownPage> {
           Container(
               width: 200,
               padding: EdgeInsets.only(top: 40),
-              child: MyRaisedButton(widget.onPressedFunction, "Avançar")),
+              child:
+                  MyRaisedButton(widget.onPressedFunction, widget.buttomText)),
         ],
       ),
     );
@@ -81,6 +85,7 @@ class _DropDownState extends State<DropDownPage> {
   void _dropDownItemSelected(String novoItem) {
     setState(() {
       this._selectedDropDownItem = novoItem;
+      dropDownSelected  = this._selectedDropDownItem;
     });
   }
 }
