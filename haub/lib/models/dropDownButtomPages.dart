@@ -7,16 +7,16 @@ class DropDownPage extends StatefulWidget {
   final String textBeforeBox;
   final Function onPressedFunction;
   final String buttomText;
+  final Function onChangedDropDown;
+  String currentValue;
 
   DropDownPage(this.dropDownList, this.textBeforeBox, this.onPressedFunction,
-      this.buttomText);
+      this.buttomText,this.onChangedDropDown);
+  
   @override
-  DropDownState createState() => DropDownState();
+  _DropDownState createState() => _DropDownState();
 }
-class DropDownState extends State<DropDownPage> {
-  String nomeAreaProficiencia = "";
-  var _selectedDropDownItem;
-  static String dropDownSelected;
+class _DropDownState extends State<DropDownPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +49,7 @@ class DropDownState extends State<DropDownPage> {
                 width: 310,
                 child: SingleChildScrollView(
                   child: DropdownButton<String>(
+                      value: this.widget.currentValue,
                       isExpanded: true,
                       items:
                           widget.dropDownList.map((String dropDownStringItem) {
@@ -60,13 +61,12 @@ class DropDownState extends State<DropDownPage> {
                           ),
                         );
                       }).toList(),
-                      onChanged: (String novoItemSelecionado) {
-                        _dropDownItemSelected(novoItemSelecionado);
+                      onChanged: (novoItemSelecionado) {
+                        this.widget.onChangedDropDown(novoItemSelecionado);
                         setState(() {
-                          this._selectedDropDownItem = novoItemSelecionado;
+                          this.widget.currentValue = novoItemSelecionado;
                         });
                       },
-                      value: _selectedDropDownItem,
                     ),
                 ),
               ),
@@ -80,12 +80,5 @@ class DropDownState extends State<DropDownPage> {
         ],
       ),
     );
-  }
-
-  void _dropDownItemSelected(String novoItem) {
-    setState(() {
-      this._selectedDropDownItem = novoItem;
-      dropDownSelected  = this._selectedDropDownItem;
-    });
   }
 }

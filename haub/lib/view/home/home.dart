@@ -101,7 +101,7 @@ class MyHomePageWidget extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (BuildContext context) => MyQuestionPage()));
                 },
-                tooltip: 'Increment',
+                tooltip: 'Nova Dúvida',
                 child: Icon(Icons.add),
                 elevation: 4.0,
               ),

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:haub/firebase_tools/duvida.dart';
 import 'package:haub/models/appBar.dart';
 import 'package:haub/models/colorPalette.dart';
-import 'package:haub/models/daubtClass.dart';
 import 'package:haub/models/raisedButton.dart';
-import 'doubt_area.dart';
+import 'package:haub/view/add_question/doubt_area.dart';
 
 class MyQuestionPage extends StatelessWidget {
   MyQuestionPage({Key key}) : super(key: key);
 
-  Daubt questionStatus = Daubt();
-  final mytextController = TextEditingController();
+  final Duvida questionStatus = new Duvida();
+  final TextEditingController mytextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +47,8 @@ class MyQuestionPage extends StatelessWidget {
                 padding: EdgeInsets.only(top: 55),
                 width: 200,
                 child: MyRaisedButton((){
-                  questionStatus.daubtText = mytextController.text;
-                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => MyDaubtAreaPage(questionStatus)));
+                  questionStatus.texto = mytextController.text;
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => MyQuestionAreaPage(questionStatus)));
                   },
                   "Avançar"
                   ),

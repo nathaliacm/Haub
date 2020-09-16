@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:haub/firebase_tools/duvida.dart';
 
 abstract class Usuario {
   static User _usuario;
@@ -113,5 +114,15 @@ abstract class Usuario {
     await GoogleSignIn().signOut();
     await _fetchUserMetaData();
     return (!estaConectado());
+  }
+
+  static Future<void> enviarDuvida(Duvida novaDuvida) async {
+    FirebaseFirestore.instance.collection('duvidas').doc().set({
+      'sender':id,
+      'timestamp':DateTime.now(),
+      'texto':novaDuvida.texto,
+      'area':novaDuvida.area,
+      'nivel':novaDuvida.nivel
+    });
   }
 }
