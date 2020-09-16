@@ -4,6 +4,7 @@ import 'package:haub/models/appBar.dart';
 import 'package:haub/models/chatPreview.dart';
 import 'package:haub/view/add_question/question_page.dart';
 import 'package:haub/view/chat_screen/chat_screen.dart';
+import 'package:haub/view/home/chatList.dart';
 import 'package:haub/view/home/drawer.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'package:haub/view/home/bottomTabBar.dart';
@@ -42,54 +43,8 @@ class MyHomePageWidget extends StatelessWidget {
               appBar: CircularAppBar('Haub', 100.0, false, 28, BottomTabBar()),
               drawer: MyDrawer(),
               body: TabBarView(children: [
-                // Expanded(
-                //   child: ListView.builder(
-                //     itemCount: list.length,
-                //     itemBuilder: (context, index) {
-                //       return ListTile(
-                //         title: Text(list[index].name),
-                //         subtitle: Row(
-                //           children: [
-                //             Text(list[index].lastMessage),
-                //             // SizedBox(width: 25),
-                //             Text(list[index].time)
-                //           ],
-                //         ),
-                //       );
-                //     },
-                //   ),
-                // ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    RaisedButton(
-                        child: Text("chat de Dúvidas"),
-                        color: ColorPalette.secondaryColor,
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      MyChatPage()));
-                        }),
-                  ],
-                ),
-
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    RaisedButton(
-                        child: Text("chat de mentoria"),
-                        color: ColorPalette.secondaryColor,
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      MyChatPage()));
-                        }),
-                  ],
-                ),
+                ChatListView(ChatPreview.list),
+                ChatListView(ChatPreview.list),
               ]),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerDocked,
