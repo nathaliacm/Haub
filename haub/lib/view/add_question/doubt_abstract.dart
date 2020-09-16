@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haub/models/appBar.dart';
-import 'package:haub/models/colorPalette.dart';
 import 'package:haub/models/raisedButton.dart';
-
 
 class MyDaubtAbstractPage extends StatelessWidget {
   MyDaubtAbstractPage({Key key}) : super(key: key);
@@ -36,10 +34,11 @@ class MyDaubtAbstractPage extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(top: 40),
-                width: 200,
-                child: MyRaisedButton((){Navigator.popUntil(context, ModalRoute.withName('/home'));},"Confirmar")
-                ),
+                  padding: EdgeInsets.only(top: 40),
+                  width: 200,
+                  child: MyRaisedButton(() {
+                    Navigator.popUntil(context, ModalRoute.withName('/home'));
+                  }, "Confirmar")),
             ],
           ),
           padding: EdgeInsets.only(top: 100, right: 20, left: 20),
