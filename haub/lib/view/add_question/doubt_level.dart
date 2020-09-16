@@ -8,10 +8,19 @@ class MyDaubtLevelPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: DropDownPage(['Doutor', 'Mestre', 'Graduado', 'Técnico', 'Ensino Médio', 'Ensino Fundamental'], 
-          "Selecione o level de sua dúvida",
-          (){Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => MyDaubtAbstractPage()));}
-        ),
+      child: DropDownPage([
+        'Doutor',
+        'Mestre',
+        'Graduado',
+        'Técnico',
+        'Ensino Médio',
+        'Ensino Fundamental'
+      ], "Selecione o level de sua dúvida", () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => MyDaubtAbstractPage()));
+      }, "Avançar"),
     );
   }
 }
