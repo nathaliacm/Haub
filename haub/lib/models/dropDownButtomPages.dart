@@ -11,12 +11,12 @@ class DropDownPage extends StatefulWidget {
   DropDownPage(this.dropDownList, this.textBeforeBox, this.onPressedFunction,
       this.buttomText);
   @override
-  _DropDownState createState() => _DropDownState();
+  DropDownState createState() => DropDownState();
 }
-
-class _DropDownState extends State<DropDownPage> {
+class DropDownState extends State<DropDownPage> {
   String nomeAreaProficiencia = "";
   var _selectedDropDownItem;
+  static String dropDownSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,8 @@ class _DropDownState extends State<DropDownPage> {
                           this._selectedDropDownItem = novoItemSelecionado;
                         });
                       },
-                      value: _selectedDropDownItem),
+                      value: _selectedDropDownItem,
+                    ),
                 ),
               ),
             ],
@@ -84,6 +85,7 @@ class _DropDownState extends State<DropDownPage> {
   void _dropDownItemSelected(String novoItem) {
     setState(() {
       this._selectedDropDownItem = novoItem;
+      dropDownSelected  = this._selectedDropDownItem;
     });
   }
 }

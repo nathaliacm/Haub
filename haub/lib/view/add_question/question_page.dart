@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:haub/models/appBar.dart';
 import 'package:haub/models/colorPalette.dart';
+import 'package:haub/models/daubtClass.dart';
 import 'package:haub/models/raisedButton.dart';
 import 'doubt_area.dart';
 
 class MyQuestionPage extends StatelessWidget {
   MyQuestionPage({Key key}) : super(key: key);
+
+  Daubt questionStatus = Daubt();
+  final mytextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +29,7 @@ class MyQuestionPage extends StatelessWidget {
                 ),
               ),
               TextField(
+                controller: mytextController,
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: InputDecoration(
@@ -32,16 +37,21 @@ class MyQuestionPage extends StatelessWidget {
                     borderSide: BorderSide(color: Colors.grey),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                  labelText: "Digite a sua dúvida aqui",
+                  hintText: "Digite a sua dúvida aqui",
                   labelStyle: TextStyle(color: ColorPalette.textColor),
                   filled: true,
                   fillColor: Colors.grey[300],
                 ),
-              ),
+              ),  
               Container(
-                padding: EdgeInsets.only(top: 40),
+                padding: EdgeInsets.only(top: 55),
                 width: 200,
-                child: MyRaisedButton((){Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => MyDaubtAreaPage()));},"Avançar")
+                child: MyRaisedButton((){
+                  questionStatus.daubtText = mytextController.text;
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => MyDaubtAreaPage(questionStatus)));
+                  },
+                  "Avançar"
+                  ),
                 ),
             ],
           ),
