@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:haub/models/colorPalette.dart';
 import 'package:haub/models/dropDownButtomPages.dart';
 
 class MyRegisterPage extends StatelessWidget {
