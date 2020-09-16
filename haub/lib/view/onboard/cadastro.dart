@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:haub/models/colorPalette.dart';
+import 'package:haub/models/dropDownButtomPages.dart';
 
 class MyRegisterPage extends StatelessWidget {
   MyRegisterPage({Key key}) : super(key: key);
@@ -7,20 +7,20 @@ class MyRegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorPalette.primaryColor,
-        title: const Text('Haub Cadastro'),
-      ),
-      
-      body: Center(
-        child: RaisedButton(
-          color: ColorPalette.secondaryColor,
-          child: Text("Cadastro"),
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, '/home');
-          },
-        ),
-      )
-    );
+        body: Center(
+      child: DropDownPage([
+        'Física',
+        'Matemática',
+        'Português',
+        'História',
+        'inglês',
+        'Geográfia',
+        'Química',
+        'Sociologia',
+        'Filosofia'
+      ], "Escolha uma área de domínio", () {
+        Navigator.pushReplacementNamed(context, '/home');
+      }, "Confirmar"),
+    ));
   }
 }

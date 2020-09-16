@@ -15,7 +15,7 @@ class MyDaubtLevelPage extends StatelessWidget {
           (){
             questionStatus.daubtLevel = DropDownState.dropDownSelected;
             Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => MyDaubtAbstractPage(questionStatus)));
-            }
+            }, "Avançar"
         ),
     );
   }
