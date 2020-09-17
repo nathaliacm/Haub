@@ -68,7 +68,6 @@ class Conversa {
 
   Stream<List<Mensagem>> novasMensagens() {
     StreamController<List<Mensagem>> controlador = new StreamController<List<Mensagem>>();
-    List<Mensagem> mensagens = new List<Mensagem>();
     
     _mensagens
       .orderBy('timestamp',descending: true)
@@ -76,6 +75,7 @@ class Conversa {
       .snapshots().listen(
           (value) {
             if (value != null) {
+              List<Mensagem> mensagens = new List<Mensagem>();
               value.docs.forEach(
                 (element) {
                   Mensagem message = Mensagem();
@@ -89,9 +89,9 @@ class Conversa {
                   mensagens.add(message);
                 }
               );
+              _ultimaMensagem = value.docs.last;
+              controlador.add(mensagens);
             }
-            _ultimaMensagem = value.docs.last;
-            controlador.add(mensagens);
           }
       );
     return controlador.stream;

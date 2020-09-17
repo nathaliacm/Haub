@@ -129,25 +129,25 @@ abstract class Usuario {
 
   static Stream<List<Conversa>> conversas({bool minhasDuvidas}) {
     StreamController<List<Conversa>> controlador = new StreamController<List<Conversa>>();
-    
-    List<Conversa> lista = new List<Conversa>();
 
     Conversa.todas
       .where('participantes', arrayContains:id)
-      .where('firstSender', isEqualTo:Usuario.id)
       .orderBy('lastTimestamp',descending: true)
       .snapshots()
       .listen(
         (value) {
-          value.docs.forEach(
-            (element) {
-              Conversa novo = Conversa(element);
-              if ((minhasDuvidas) == (novo.originadorId == Usuario.id)) {
-                lista.add(Conversa(element));
+          if (value != null) {
+            List<Conversa> lista = new List<Conversa>();
+            value.docs.forEach(
+              (element) {
+                Conversa novo = new Conversa(element);
+                //if ((minhasDuvidas) == (novo.originadorId == Usuario.id)) {
+                  lista.add(novo);
+                //}
               }
-            }
-          );
-          controlador.add(lista);
+            );
+            controlador.add(lista);
+          }
         }
       );
     return controlador.stream;
