@@ -125,4 +125,8 @@ abstract class Usuario {
       'nivel':novaDuvida.nivel
     });
   }
+
+  static bool isMine(Mensagem mensagem) {
+    return (mensagem.senderId == id);
+  }
 }
