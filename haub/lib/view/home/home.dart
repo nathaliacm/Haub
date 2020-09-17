@@ -30,7 +30,8 @@ class MyHomePageWidget extends StatelessWidget {
           ) ??
           false;
     }
-
+    ChatListView duvidas = ChatListView(true);
+    ChatListView naoDuvidas = ChatListView(false);
     return WillPopScope(
         onWillPop: _alertBeforeClosing,
         child: DefaultTabController(
@@ -39,8 +40,8 @@ class MyHomePageWidget extends StatelessWidget {
               appBar: CircularAppBar('Haub', 100.0, false, 28, BottomTabBar()),
               drawer: MyDrawer(),
               body: TabBarView(children: [
-                ChatListView(true),
-                ChatListView(false),
+                duvidas,
+                naoDuvidas,
               ]),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerDocked,

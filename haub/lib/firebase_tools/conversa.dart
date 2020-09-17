@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:haub/firebase_tools/usuario.dart';
 
@@ -18,12 +17,13 @@ class Mensagem {
   String get conversationId => _conversationId;
   String get texto => _texto;
 
-  void _setFromDB(String messageId,String senderId,String senderName, String conversationId, Timestamp timestamp) {
-    this._messageId = messageId;
+  void _setFromDB(String conversationId, String senderId, String senderName, Timestamp timestamp, String texto, String messageId) {
+    this._conversationId = conversationId;
     this._senderId = senderId;
     this._senderName = senderName;
-    this._conversationId = conversationId;
     this._timestamp = timestamp;
+    this._texto = texto;
+    this._messageId = messageId;
   }
 
   /*
@@ -83,11 +83,12 @@ class Conversa {
                   Mensagem message = Mensagem();
                   print(element.data()['timestamp']);
                   message._setFromDB(
-                    element.id,
+                    conversationId,
                     element.data()['senderId'],
                     element.data()['senderName'],
-                    element.data()['conversationId'],
-                    element.data()['timestamp']
+                    element.data()['timestamp'],
+                    element.data()['texto'],
+                    element.id
                   );
                   mensagens.add(message);
                 }
@@ -130,11 +131,12 @@ class Conversa {
                 (element) {
                   Mensagem message = Mensagem();
                   message._setFromDB(
-                    element.id,
+                    conversationId,
                     element.data()['senderId'],
                     element.data()['senderName'],
-                    element.data()['conversationId'],
-                    element.data()['timestamp']
+                    element.data()['timestamp'],
+                    element.data()['texto'],
+                    element.id
                   );
                   mensagens.add(message);
                 }
@@ -154,11 +156,12 @@ class Conversa {
                 (element) {
                   Mensagem message = Mensagem();
                   message._setFromDB(
-                    element.id,
+                    conversationId,
                     element.data()['senderId'],
                     element.data()['senderName'],
-                    element.data()['conversationId'],
-                    element.data()['timestamp']
+                    element.data()['timestamp'],
+                    element.data()['texto'],
+                    element.id
                   );
                   mensagens.add(message);
                 }
