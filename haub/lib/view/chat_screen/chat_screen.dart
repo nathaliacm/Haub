@@ -68,6 +68,7 @@ class _MyChatPageState extends State<MyChatPage> {
                         if(ultimasMensagens.data==null) {return Center(child: CircularProgressIndicator());}
                         return ListView.builder(
                             itemCount: ultimasMensagens.data.length,
+                            reverse: true,
                             itemBuilder: (context, index) {
                               print('chegouaqui');
                               return Container(
