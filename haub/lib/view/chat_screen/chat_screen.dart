@@ -5,14 +5,24 @@ import 'package:haub/models/colorPalette.dart';
 import 'text_composer.dart';
 import 'constants.dart';
 
-class MyChatPage extends StatelessWidget {
+class MyChatPage extends StatefulWidget {
   final Conversa conversaAtual;
-  
-  MyChatPage(this.conversaAtual, {Key key}) : super(key: key);
+  Stream<List<Mensagem>> msgStream;
+
+  MyChatPage(this.conversaAtual, {Key key}) : super(key: key){
+    msgStream = conversaAtual.novasMensagens();
+    print('conversaAtual ${conversaAtual.originadorId}');
+  }
+
+  @override
+  _MyChatPageState createState() => _MyChatPageState();
+}
+
+class _MyChatPageState extends State<MyChatPage> {
   Color colorBalloon = ColorPalette.chatSenderColor;
-  
+
   void _sendMessage(String text) {
-    conversaAtual.enviarMensagem(text);
+    widget.conversaAtual.enviarMensagem(text);
   }
 
   @override
@@ -41,7 +51,7 @@ class MyChatPage extends StatelessWidget {
                 children: <Widget>[
               Expanded(
                 child: StreamBuilder<List<Mensagem>>(
-                  stream: conversaAtual.novasMensagens(),
+                  stream: widget.msgStream,
                   builder: (context, ultimasMensagens) {
                     switch (ultimasMensagens.connectionState) {
                       case ConnectionState.none:
@@ -50,9 +60,11 @@ class MyChatPage extends StatelessWidget {
                           child: CircularProgressIndicator(),
                         );
                       default:
+                        if(ultimasMensagens.data==null) {return Center(child: CircularProgressIndicator());}
                         return ListView.builder(
                             itemCount: ultimasMensagens.data.length,
                             itemBuilder: (context, index) {
+                              print('chegouaqui');
                               return Container(
                                 margin:
                                   chooseSide(ultimasMensagens.data[index]),

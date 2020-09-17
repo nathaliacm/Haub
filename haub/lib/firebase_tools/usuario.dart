@@ -128,7 +128,7 @@ abstract class Usuario {
   }
 
   static Stream<List<Conversa>> conversas({bool minhasDuvidas}) {
-    StreamController<List<Conversa>> controlador = new StreamController<List<Conversa>>();
+    StreamController<List<Conversa>> controlador = new StreamController<List<Conversa>>.broadcast();
     List<Conversa> lista = new List<Conversa>();
 
     Conversa.todas
@@ -148,7 +148,6 @@ abstract class Usuario {
               }
             );
           }
-          print('chamada conversas ${lista==null}');
           controlador.add(lista);
         }
       );

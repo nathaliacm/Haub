@@ -58,6 +58,7 @@ class Conversa {
 
   Conversa(DocumentSnapshot element) {
     _referencia = element.reference;
+    _mensagens = element.reference.collection('mensagens');
     _conversationId = element.id;
     _firstSender = element.data()['firstSender'];
     _lastSender = element.data()['lastSender'];
@@ -67,7 +68,7 @@ class Conversa {
   }
 
   Stream<List<Mensagem>> novasMensagens() {
-    StreamController<List<Mensagem>> controlador = new StreamController<List<Mensagem>>();
+    StreamController<List<Mensagem>> controlador = new StreamController<List<Mensagem>>.broadcast();
     List<Mensagem> mensagens = new List<Mensagem>();
 
     _mensagens

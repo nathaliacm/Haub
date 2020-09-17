@@ -4,22 +4,29 @@ import 'package:haub/firebase_tools/usuario.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'package:haub/view/chat_screen/chat_screen.dart';
 
-// ignore: must_be_immutable
-class ChatListView extends StatelessWidget {
+
+class ChatListView extends StatefulWidget {
   bool minhasDuvidas;
   Stream<List<Conversa>> convStream;
-  
+
   ChatListView(this.minhasDuvidas) {
      convStream = Usuario.conversas(minhasDuvidas:this.minhasDuvidas);
   }
 
   @override
+  _ChatListViewState createState() => _ChatListViewState();
+}
+
+class _ChatListViewState extends State<ChatListView> {
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Conversa>>(
-      stream: convStream,
+      stream: widget.convStream,
       builder:
         (context, conversas) {
-          print('chamada streambuilder conv ${conversas.data==null}');
+          if(conversas.data==null) {
+            return Center(child: CircularProgressIndicator());
+          }
           return ListView.builder(
             padding: EdgeInsets.fromLTRB(14, 0, 14, 0),
             itemCount: conversas.data.length,
