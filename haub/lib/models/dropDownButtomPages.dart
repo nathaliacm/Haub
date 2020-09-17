@@ -21,14 +21,14 @@ class _DropDownState extends State<DropDownPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CircularAppBar(" ", 60, true, 20),
+      appBar: CircularAppBar(" ", 120, true, 20),
       body: criaDropDownButton(),
     );
   }
 
   criaDropDownButton() {
     return Container(
-      padding: EdgeInsets.only(top: 150),
+      padding: EdgeInsets.only(top: 110),
       child: Column(
         children: <Widget>[
           Padding(

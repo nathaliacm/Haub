@@ -3,6 +3,7 @@ import 'package:haub/firebase_tools/usuario.dart';
 import 'package:haub/models/appBar.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'package:haub/view/onboard/cadastro.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class MyLoginPage extends StatefulWidget {
   @override
@@ -20,26 +21,37 @@ class _LoginScreenState extends State<MyLoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _formKey,
-      appBar: CircularAppBar('Haub', 140, true, 34),
+      appBar: AppBar(
+        backgroundColor: ColorPalette.primaryColor,
+        centerTitle: true,
+        toolbarHeight: 300, 
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'images/logo-teste.png',
+              width: 120,
+              height: 120,
+            ),
+          ],
+        ),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30))),
+      ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                Text(
-                    "Login",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ],
-              ),
+              padding: EdgeInsets.only(top: 80),
             ),
             Form(
               child: Padding(
                 padding: EdgeInsets.only(left: 15, right: 15, top: 10),
                 child: Column(children: [
+                  /*
                   TextField(
                     controller: _emailController,
                     decoration: InputDecoration(hintText: "E-mail"),
@@ -50,44 +62,27 @@ class _LoginScreenState extends State<MyLoginPage> {
                     decoration: InputDecoration(hintText: "Senha"),
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: true,
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: FlatButton(
-                      onPressed: () async {
-                        if (await Usuario.fazerLogin()) {
-                          Navigator.push(context, MaterialPageRoute(
-                          builder: (BuildContext context) =>  MyRegisterPage()));
-                        }
-                      },
-                      child: Text("Cadastre-se",
-                        textAlign: TextAlign.right,
-                      ),
-                      padding: EdgeInsets.zero,
-                    ),
-                  ),
+                  ),*/
                   Container(
-                    width: (MediaQuery.of(context).size.width),
-                    child: RaisedButton(
-                      color: ColorPalette.secondaryColor,
-                      onPressed: () async {
-                        await Usuario.fazerLogin();
-                        if (!await Usuario.jaCadastrado()) {
-                          await Usuario.cadastrar(); //Apenas para teste. REMOVER
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => MyRegisterPage()));
-                        } else {
-                          Navigator.pushReplacementNamed(context, '/home');
-                        }
-                      },
-                      child: Text(
-                        "Entrar",
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: ColorPalette.textColor,
-                        ),
-                      ),
-                    ),
-                  ),
+                      width: (MediaQuery.of(context).size.width),
+                      height: 100,
+                      child: SignInButton(
+                        Buttons.Google,
+                        text: "Sign in with Google",
+                        onPressed: () async {
+                          await Usuario.fazerLogin();
+                          if (!await Usuario.jaCadastrado()) {
+                            await Usuario
+                                .cadastrar(); //Apenas para teste. REMOVER
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyRegisterPage()));
+                          } else {
+                            Navigator.pushReplacementNamed(context, '/home');
+                          }
+                        },
+                      )),
                 ]),
               ),
             ),

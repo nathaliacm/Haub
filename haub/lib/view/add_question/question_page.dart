@@ -16,7 +16,6 @@ class MyQuestionPage extends StatelessWidget {
     return Scaffold(
       appBar: CircularAppBar('', 120, true,0),
       body: SingleChildScrollView(
-        child: Container(
           child: Column(
             children: [
               Padding(
@@ -44,7 +43,7 @@ class MyQuestionPage extends StatelessWidget {
                 ),
               ),  
               Container(
-                padding: EdgeInsets.only(top: 55),
+                padding: EdgeInsets.only(top: 40),
                 width: 200,
                 child: MyRaisedButton((){
                   questionStatus.texto = mytextController.text;
@@ -57,7 +56,6 @@ class MyQuestionPage extends StatelessWidget {
           ),
           padding: EdgeInsets.only(top: 100, right: 20, left: 20),
         ),
-      ),
     );
   }
 }
