@@ -128,7 +128,7 @@ abstract class Usuario {
   }
 
   static Stream<List<Conversa>> conversas({bool minhasDuvidas}) {
-    StreamController<List<Conversa>> controlador = new StreamController<List<Conversa>>.broadcast();
+    StreamController<List<Conversa>> controlador = new StreamController<List<Conversa>>();
     List<Conversa> lista = new List<Conversa>();
 
     Conversa.todas
