@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:haub/firebase_tools/duvida.dart';
+import 'package:haub/firebase_tools/usuario.dart';
 import 'package:haub/models/appBar.dart';
-import 'package:haub/models/daubtClass.dart';
 import 'package:haub/models/raisedButton.dart';
 
 class MyDaubtAbstractPage extends StatelessWidget {
-  final Daubt questionStatus;
-  MyDaubtAbstractPage(this.questionStatus,{Key key}): super(key: key);
+  final Duvida questionStatus;
+
+  MyDaubtAbstractPage(this.questionStatus, {Key key}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CircularAppBar(" ",120, true, 20),
+      appBar: CircularAppBar(" ",60, true, 20),
       body: SingleChildScrollView(
         child: Container(
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.all(15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -44,7 +46,7 @@ class MyDaubtAbstractPage extends StatelessWidget {
                           child:Scrollbar(
                             child: SingleChildScrollView(
                             scrollDirection: Axis.vertical,
-                            child:Text("${questionStatus.daubtText}\n",
+                            child:Text("${questionStatus.texto}\n",
                               style: TextStyle(fontSize: 15)),
                             ),
                           ), 
@@ -52,9 +54,9 @@ class MyDaubtAbstractPage extends StatelessWidget {
                         
                         Padding(
                           padding: EdgeInsets.only(bottom: 5),
-                          child: Text("A área da sua duvida: ${questionStatus.daubtArea}", style: TextStyle(fontSize: 15)),
+                          child: Text("A área da sua duvida: ${questionStatus.area}", style: TextStyle(fontSize: 15)),
                         ),
-                        Text("O level da sua duvida: ${questionStatus.daubtLevel}", style: TextStyle(fontSize: 15)),
+                        Text("O level da sua duvida: ${questionStatus.nivel}", style: TextStyle(fontSize: 15)),
                       ],
                     ),
                   ),
@@ -63,6 +65,7 @@ class MyDaubtAbstractPage extends StatelessWidget {
                   padding: EdgeInsets.only(top: 40),
                   width: 200,
                   child: MyRaisedButton(() {
+                    Usuario.enviarDuvida(questionStatus);
                     Navigator.popUntil(context, ModalRoute.withName('/home'));
                   }, "Confirmar")),
             ],

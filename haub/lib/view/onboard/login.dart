@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:haub/firebase_tools/usuario.dart';
-import 'package:haub/models/appBar.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'package:haub/view/onboard/cadastro.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
@@ -11,9 +10,6 @@ class MyLoginPage extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<MyLoginPage> {
-  final _emailController = TextEditingController();
-  final _passController = TextEditingController();
-
   final _formKey = GlobalKey<FormState>();
   //final _scaffoldKey = GlobalKey<ScaffoldState>();
 

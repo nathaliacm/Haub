@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:haub/firebase_tools/conversa.dart';
+import 'package:haub/firebase_tools/duvida.dart';
 
 abstract class Usuario {
   static User _usuario;
@@ -113,5 +115,46 @@ abstract class Usuario {
     await GoogleSignIn().signOut();
     await _fetchUserMetaData();
     return (!estaConectado());
+  }
+
+  static Future<void> enviarDuvida(Duvida novaDuvida) async {
+    FirebaseFirestore.instance.collection('duvidas').doc().set({
+      'sender':id,
+      'timestamp':DateTime.now(),
+      'texto':novaDuvida.texto,
+      'area':novaDuvida.area,
+      'nivel':novaDuvida.nivel
+    });
+  }
+
+  static Stream<List<Conversa>> conversas({bool minhasDuvidas}) {
+    StreamController<List<Conversa>> controlador = new StreamController<List<Conversa>>.broadcast();
+    List<Conversa> lista = new List<Conversa>();
+
+    Conversa.todas
+      .where('participantes', arrayContains:id)
+      .orderBy('lastTimestamp',descending: true)
+      .snapshots()
+      .listen(
+        (value) {
+          lista.clear();
+          if (value != null) {
+            value.docs.forEach(
+              (element) {
+                Conversa novo = new Conversa(element);
+                if ((minhasDuvidas) == (novo.originadorId == Usuario.id)) {
+                  lista.add(novo);
+                }
+              }
+            );
+          }
+          controlador.add(lista);
+        }
+      );
+    return controlador.stream;
+  }
+
+  static bool isMine(Mensagem mensagem) {
+    return (mensagem.senderId == id);
   }
 }

@@ -18,9 +18,13 @@ class MyRegisterPage extends StatelessWidget {
         'Química',
         'Sociologia',
         'Filosofia'
-      ], "Escolha uma área de domínio", () {
+      ],
+      "Escolha uma área de domínio",
+      () {
         Navigator.pushReplacementNamed(context, '/home');
-      }, "Confirmar"),
+      },
+      "Confirmar",
+      null),
     ));
   }
 }
