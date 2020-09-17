@@ -7,6 +7,8 @@ import 'constants.dart';
 
 class MyChatPage extends StatelessWidget {
   MyChatPage({Key key}) : super(key: key);
+  bool mine = true;
+  Color colorBalloon = ColorPalette.chatSenderColor;
 
   void _sendMessage(String text) {
     FirebaseFirestore.instance.collection('messages').add(
@@ -34,61 +36,72 @@ class MyChatPage extends StatelessWidget {
           ],
         ),
         body: Center(
-            child: Column(mainAxisAlignment: MainAxisAlignment.end, children: <
-                Widget>[
-          Expanded(
-            child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection('messages')
-                  .orderBy('timestamp', descending: true)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.none:
-                  case ConnectionState.waiting:
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  default:
-                    List<DocumentSnapshot> documents =
-                        snapshot.data.docs.toList();
-                    return ListView.builder(
-                        itemCount: documents.length,
-                        reverse: true,
-                        itemBuilder: (context, index) {
-                          return Container(
-                              margin: const EdgeInsets.fromLTRB(10, 0, 70, 10),
-                              child: Ink(
-                                decoration: ShapeDecoration(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20.0))),
-                                  color: ColorPalette.secondaryColor,
-                                ),
-                                child: Column(
-                                    // crossAxisAlignment:
-                                    //     CrossAxisAlignment.center,
-                                    children: [
-                                      ListTile(
-                                        title: Text(
-                                            documents[index].data()['text']),
-                                      ),
-                                    ]),
-                              ));
-                        });
-                }
-              },
-            ),
-          ),
-          Center(
-              child: Ink(
-                  decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(20.0))),
-                      color: ColorPalette.primaryColor),
-                  child: TextComposer(_sendMessage)))
-        ])));
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+              Expanded(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('messages')
+                      .orderBy('timestamp', descending: true)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.none:
+                      case ConnectionState.waiting:
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      default:
+                        List<DocumentSnapshot> documents =
+                            snapshot.data.docs.toList();
+                        return ListView.builder(
+                            itemCount: documents.length,
+                            reverse: true,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                  margin: chooseSide(),
+                                  child: Ink(
+                                    decoration: ShapeDecoration(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20.0))),
+                                      color: this.colorBalloon,
+                                    ),
+                                    child: Column(
+                                        // crossAxisAlignment:
+                                        //     CrossAxisAlignment.center,
+                                        children: [
+                                          ListTile(
+                                            title: Text(documents[index]
+                                                .data()['text']),
+                                          ),
+                                        ]),
+                                  ));
+                            });
+                    }
+                  },
+                ),
+              ),
+              Center(
+                  child: Ink(
+                      decoration: ShapeDecoration(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0))),
+                          color: ColorPalette.primaryColor),
+                      child: TextComposer(_sendMessage)))
+            ])));
+  }
+
+  EdgeInsetsGeometry chooseSide() {
+    if (this.mine) {
+      this.colorBalloon = ColorPalette.chatSenderColor;
+      return EdgeInsets.fromLTRB(120, 0, 10, 10);
+    } else {
+      this.colorBalloon = ColorPalette.chatReceivedColor;
+      return EdgeInsets.fromLTRB(10, 0, 120, 10);
+    }
   }
 }
 
