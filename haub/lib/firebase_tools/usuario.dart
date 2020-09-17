@@ -129,6 +129,7 @@ abstract class Usuario {
 
   static Stream<List<Conversa>> conversas({bool minhasDuvidas}) {
     StreamController<List<Conversa>> controlador = new StreamController<List<Conversa>>();
+    List<Conversa> lista = new List<Conversa>();
 
     Conversa.todas
       .where('participantes', arrayContains:id)
@@ -136,18 +137,19 @@ abstract class Usuario {
       .snapshots()
       .listen(
         (value) {
+          lista.clear();
           if (value != null) {
-            List<Conversa> lista = new List<Conversa>();
             value.docs.forEach(
               (element) {
                 Conversa novo = new Conversa(element);
-                //if ((minhasDuvidas) == (novo.originadorId == Usuario.id)) {
+                if ((minhasDuvidas) == (novo.originadorId == Usuario.id)) {
                   lista.add(novo);
-                //}
+                }
               }
             );
-            controlador.add(lista);
           }
+          print('chamada conversas ${lista==null}');
+          controlador.add(lista);
         }
       );
     return controlador.stream;

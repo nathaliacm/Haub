@@ -52,7 +52,6 @@ class MyChatPage extends StatelessWidget {
                       default:
                         return ListView.builder(
                             itemCount: ultimasMensagens.data.length,
-                            reverse: true,
                             itemBuilder: (context, index) {
                               return Container(
                                 margin:
