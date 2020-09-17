@@ -19,8 +19,8 @@ class CircularAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: centerTitle,
       toolbarHeight: height,
       title: Text(
-        titulo,
-        style: TextStyle(fontSize: fontSize),
+            titulo,
+            style: TextStyle(fontSize: fontSize),
       ),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
