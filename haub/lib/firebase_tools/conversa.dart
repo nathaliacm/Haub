@@ -104,7 +104,7 @@ class Conversa {
 
   Future<void> enviarMensagem(String texto) async {
     Timestamp agora = Timestamp.now();
-    _referencia.set({
+    _referencia.update({
       'lastTimestamp':agora,
       'lastSender':Usuario.nome,
       'lastMessageText':texto
