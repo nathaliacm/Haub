@@ -127,12 +127,20 @@ abstract class Usuario {
     });
   }
 
-  static Future<List<Conversa>> conversas({String idConversa}) async {
-    List<Conversa> lista
-    await FirebaseFirestore.instance.collection('conversas')
+  static Future<List<Conversa>> conversas() async {
+    List<Conversa> lista;
+    await Conversa.todas
       .where('participantes', arrayContains:id)
       .orderBy('lastTimestamp')
-      .get().then((value) => value.docs.forEach((element) {lista.add(element)}));
+      .get().then(
+        (value) {
+          value.docs.forEach(
+            (element) {
+              lista.add(Conversa(element));
+            }
+          );
+        }
+      );
     return lista;
   }
 

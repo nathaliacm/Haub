@@ -1,7 +1,5 @@
-//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:haub/models/appBar.dart';
-import 'package:haub/models/chatPreview.dart';
 import 'package:haub/view/add_question/question_page.dart';
 import 'package:haub/view/home/chatList.dart';
 import 'package:haub/view/home/drawer.dart';
@@ -41,8 +39,8 @@ class MyHomePageWidget extends StatelessWidget {
               appBar: CircularAppBar('Haub', 100.0, false, 28, BottomTabBar()),
               drawer: MyDrawer(),
               body: TabBarView(children: [
-                ChatListView(ChatPreview.list),
-                ChatListView(ChatPreview.list),
+                ChatListView(),
+                ChatListView(),
               ]),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerDocked,

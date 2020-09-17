@@ -8,7 +8,6 @@ class DropDownPage extends StatefulWidget {
   final Function onPressedFunction;
   final String buttomText;
   final Function onChangedDropDown;
-  String currentValue;
 
   DropDownPage(this.dropDownList, this.textBeforeBox, this.onPressedFunction,
       this.buttomText,this.onChangedDropDown);
@@ -17,6 +16,7 @@ class DropDownPage extends StatefulWidget {
   _DropDownState createState() => _DropDownState();
 }
 class _DropDownState extends State<DropDownPage> {
+  String currentValue;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class _DropDownState extends State<DropDownPage> {
                 width: 310,
                 child: SingleChildScrollView(
                   child: DropdownButton<String>(
-                      value: this.widget.currentValue,
+                      value: currentValue,
                       isExpanded: true,
                       items:
                           widget.dropDownList.map((String dropDownStringItem) {
@@ -63,9 +63,7 @@ class _DropDownState extends State<DropDownPage> {
                       }).toList(),
                       onChanged: (novoItemSelecionado) {
                         this.widget.onChangedDropDown(novoItemSelecionado);
-                        setState(() {
-                          this.widget.currentValue = novoItemSelecionado;
-                        });
+                        setState(() => currentValue = novoItemSelecionado);
                       },
                     ),
                 ),
