@@ -131,7 +131,7 @@ abstract class Usuario {
     List<Conversa> lista;
     await Conversa.todas
       .where('participantes', arrayContains:id)
-      .orderBy('lastTimestamp')
+      .orderBy('lastTimestamp',descending: true)
       .get().then(
         (value) {
           value.docs.forEach(

@@ -7,7 +7,7 @@ import 'package:haub/view/chat_screen/chat_screen.dart';
 
 // ignore: must_be_immutable
 class ChatListView extends StatelessWidget {
-  List<QueryDocumentSnapshot> list;
+  List<QueryDocumentSnapshot> list = new List<QueryDocumentSnapshot>();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,8 @@ class ChatListView extends StatelessWidget {
         .snapshots(),
       builder:
         (context, conversas) {
-          conversas.data.docs.forEach((element) {list.add(element);});
+          list.clear();
+          if (conversas.data != null) {conversas.data.docs.forEach((element) {list.add(element);});}
           return ListView.builder(
             padding: EdgeInsets.fromLTRB(14, 0, 14, 0),
             itemCount: list.length,
@@ -37,7 +38,7 @@ class ChatListView extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                     )),
                     SizedBox(width: 10),
-                    Text(list[index].data()['lastTimestamp'])
+                    //Text(list[index].data()['lastTimestamp'])
                   ],
                 ),
                 onTap: () {

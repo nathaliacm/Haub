@@ -65,23 +65,25 @@ class Conversa {
       .orderBy('timestamp',descending: true)
       .limit(20)
       .snapshots().listen(
-        (value) {
-          value.docs.forEach(
-            (element) {
-              Mensagem message = Mensagem();
-              message._setFromDB(
-                element.id,
-                element.data()['senderId'],
-                element.data()['senderName'],
-                element.data()['conversationId'],
-                element.data()['timestamp']
+          (value) {
+            if (value != null) {
+              value.docs.forEach(
+                (element) {
+                  Mensagem message = Mensagem();
+                  message._setFromDB(
+                    element.id,
+                    element.data()['senderId'],
+                    element.data()['senderName'],
+                    element.data()['conversationId'],
+                    element.data()['timestamp']
+                  );
+                  mensagens.add(message);
+                }
               );
-              mensagens.add(message);
             }
-          );
-        _ultimaMensagem = value.docs.last;
-        controlador.add(mensagens);
-        }
+            _ultimaMensagem = value.docs.last;
+            controlador.add(mensagens);
+          }
       );
     return controlador.stream;
   }
@@ -110,20 +112,22 @@ class Conversa {
         .limit(20)
         .get().then(
           (value) {
-            value.docs.forEach(
-              (element) {
-                Mensagem message = Mensagem();
-                message._setFromDB(
-                  element.id,
-                  element.data()['senderId'],
-                  element.data()['senderName'],
-                  element.data()['conversationId'],
-                  element.data()['timestamp']
-                );
-                mensagens.add(message);
-              }
-            );
-          _ultimaMensagem = value.docs.last;
+            if (value != null) {
+              value.docs.forEach(
+                (element) {
+                  Mensagem message = Mensagem();
+                  message._setFromDB(
+                    element.id,
+                    element.data()['senderId'],
+                    element.data()['senderName'],
+                    element.data()['conversationId'],
+                    element.data()['timestamp']
+                  );
+                  mensagens.add(message);
+                }
+              );
+            }
+            _ultimaMensagem = value.docs.last;
           }
         );
     } else {
@@ -132,20 +136,22 @@ class Conversa {
         .limit(20)
         .get().then(
           (value) {
-            value.docs.forEach(
-              (element) {
-                Mensagem message = Mensagem();
-                message._setFromDB(
-                  element.id,
-                  element.data()['senderId'],
-                  element.data()['senderName'],
-                  element.data()['conversationId'],
-                  element.data()['timestamp']
-                );
-                mensagens.add(message);
-              }
-            );
-          _ultimaMensagem = value.docs.last;
+            if (value != null) {
+              value.docs.forEach(
+                (element) {
+                  Mensagem message = Mensagem();
+                  message._setFromDB(
+                    element.id,
+                    element.data()['senderId'],
+                    element.data()['senderName'],
+                    element.data()['conversationId'],
+                    element.data()['timestamp']
+                  );
+                  mensagens.add(message);
+                }
+              );
+            }
+            _ultimaMensagem = value.docs.last;
           }
         );
     }
