@@ -12,13 +12,13 @@ class MyDaubtAbstractPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CircularAppBar(" ",120, true, 20),
+      appBar: CircularAppBar(" ",60, true, 20),
       body: SingleChildScrollView(
         child: Container(
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.all(15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
