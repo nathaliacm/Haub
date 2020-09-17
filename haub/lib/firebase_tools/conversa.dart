@@ -7,18 +7,18 @@ class Mensagem {
   String _messageId;
   String _senderId;
   String _senderName;
-  DateTime _timestamp;
+  Timestamp _timestamp;
   String _conversationId;
   String _texto;
 
   String get messageId => _messageId;
   String get senderId => _senderId;
   String get senderName => _senderName;
-  DateTime get timestamp => _timestamp;
+  Timestamp get timestamp => _timestamp;
   String get conversationId => _conversationId;
   String get texto => _texto;
 
-  void _setFromDB(String messageId,String senderId,String senderName, String conversationId, DateTime timestamp) {
+  void _setFromDB(String messageId,String senderId,String senderName, String conversationId, Timestamp timestamp) {
     this._messageId = messageId;
     this._senderId = senderId;
     this._senderName = senderName;
@@ -81,6 +81,7 @@ class Conversa {
               value.docs.forEach(
                 (element) {
                   Mensagem message = Mensagem();
+                  print(element.data()['timestamp']);
                   message._setFromDB(
                     element.id,
                     element.data()['senderId'],
@@ -101,7 +102,7 @@ class Conversa {
   }
 
   Future<void> enviarMensagem(String texto) async {
-    DateTime agora = DateTime.now();
+    Timestamp agora = Timestamp.now();
     _referencia.set({
       'lastTimestamp':agora,
       'lastSender':Usuario.nome,
