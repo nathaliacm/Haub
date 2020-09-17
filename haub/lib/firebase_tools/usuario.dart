@@ -127,21 +127,31 @@ abstract class Usuario {
     });
   }
 
-  static Future<List<Conversa>> conversas() async {
-    List<Conversa> lista;
-    await Conversa.todas
+  static Stream<List<Conversa>> conversas({bool minhasDuvidas}) {
+    StreamController<List<Conversa>> controlador = new StreamController<List<Conversa>>.broadcast();
+    List<Conversa> lista = new List<Conversa>();
+
+    Conversa.todas
       .where('participantes', arrayContains:id)
       .orderBy('lastTimestamp',descending: true)
-      .get().then(
+      .snapshots()
+      .listen(
         (value) {
-          value.docs.forEach(
-            (element) {
-              lista.add(Conversa(element));
-            }
-          );
+          lista.clear();
+          if (value != null) {
+            value.docs.forEach(
+              (element) {
+                Conversa novo = new Conversa(element);
+                if ((minhasDuvidas) == (novo.originadorId == Usuario.id)) {
+                  lista.add(novo);
+                }
+              }
+            );
+          }
+          controlador.add(lista);
         }
       );
-    return lista;
+    return controlador.stream;
   }
 
   static bool isMine(Mensagem mensagem) {
