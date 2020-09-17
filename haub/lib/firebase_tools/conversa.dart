@@ -59,7 +59,7 @@ class Conversa {
         .orderBy('timestamp')
         .startAfterDocument(lastMessage)
         .limit(20)
-        .get();
+        .get()
     }
   }
 }

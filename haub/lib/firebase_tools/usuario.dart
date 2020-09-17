@@ -127,6 +127,15 @@ abstract class Usuario {
     });
   }
 
+  static Future<List<Conversa>> conversas({String idConversa}) async {
+    List<Conversa> lista
+    await FirebaseFirestore.instance.collection('conversas')
+      .where('participantes', arrayContains:id)
+      .orderBy('lastTimestamp')
+      .get().then((value) => value.docs.forEach((element) {lista.add(element)}));
+    return lista;
+  }
+
   static bool isMine(Mensagem mensagem) {
     return (mensagem.senderId == id);
   }

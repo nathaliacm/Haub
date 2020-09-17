@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'package:haub/view/chat_screen/chat_screen.dart';
 
