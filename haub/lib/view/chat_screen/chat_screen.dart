@@ -10,7 +10,6 @@ class MyChatPage extends StatefulWidget {
   Stream<List<Mensagem>> msgStream;
 
   MyChatPage(this.conversaAtual, {Key key}) : super(key: key){
-    msgStream = conversaAtual.novasMensagens();
     print('conversaAtual ${conversaAtual.originadorId}');
   }
 
@@ -23,6 +22,12 @@ class _MyChatPageState extends State<MyChatPage> {
 
   void _sendMessage(String text) {
     widget.conversaAtual.enviarMensagem(text);
+  }
+
+  @override
+  void initState() {
+    widget.msgStream = widget.conversaAtual.novasMensagens();
+    super.initState();
   }
 
   @override
