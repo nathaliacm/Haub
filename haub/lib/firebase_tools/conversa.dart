@@ -42,17 +42,26 @@ class Conversa {
   
   DocumentReference _referencia;
   String _conversationId;
+  String _firstSender;
+  String _lastSender;
+  String _lastMessageText;
   List<String> participantes;
   CollectionReference _mensagens;
   DocumentSnapshot _ultimaMensagem;
   
   DocumentReference get referencia => _referencia;
   CollectionReference get mensagens => _mensagens;
+  String get ultimoAEnviar => _lastSender;
+  String get ultimoTextoMensagem => _lastMessageText;
+  String get originadorId => _firstSender;
   String get conversationId => _conversationId;
 
   Conversa(DocumentSnapshot element) {
     _referencia = element.reference;
-    _conversationId = element.data()['conversationId'];
+    _conversationId = element.id;
+    _firstSender = element.data()['firstSender'];
+    _lastSender = element.data()['lastSender'];
+    _lastMessageText = element.data()['lastMessageText'];
     participantes = List.from(element.data()['participantes']);
     _ultimaMensagem = null;
   }

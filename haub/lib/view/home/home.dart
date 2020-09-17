@@ -39,8 +39,8 @@ class MyHomePageWidget extends StatelessWidget {
               appBar: CircularAppBar('Haub', 100.0, false, 28, BottomTabBar()),
               drawer: MyDrawer(),
               body: TabBarView(children: [
-                ChatListView(),
-                ChatListView(),
+                ChatListView(true),
+                ChatListView(false),
               ]),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerDocked,
