@@ -110,7 +110,7 @@ class Conversa {
       'lastMessageText':texto
     });
     await _mensagens.doc().set({
-      'senderid':Usuario.id,
+      'senderId':Usuario.id,
       'senderName':Usuario.nome,
       'timestamp':agora,
       'texto':texto
