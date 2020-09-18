@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:haub/firebase_tools/usuario.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'package:haub/view/onboard/cadastro.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class MyLoginPage extends StatefulWidget {
   @override
@@ -59,12 +59,20 @@ class _LoginScreenState extends State<MyLoginPage> {
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: true,
                   ),*/
-                  Container(
+                  Center(
+                    child:Container(
+                      padding: EdgeInsets.all(10),
                       width: (MediaQuery.of(context).size.width),
-                      height: 100,
-                      child: SignInButton(
-                        Buttons.Google,
-                        text: "Sign in with Google",
+                      height: 90,
+                      child: GoogleSignInButton(
+                        borderRadius: 12,
+                        text: "Entre com sua conta Google",
+                        textStyle: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: ColorPalette.placeHolderTextColor,
+                        ),
+                        centered: true,
                         onPressed: () async {
                           await Usuario.fazerLogin();
                           if (!await Usuario.jaCadastrado()) {
@@ -78,7 +86,7 @@ class _LoginScreenState extends State<MyLoginPage> {
                             Navigator.pushReplacementNamed(context, '/home');
                           }
                         },
-                      )),
+                      ))),
                 ]),
               ),
             ),

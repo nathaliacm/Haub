@@ -70,9 +70,9 @@ class Conversa {
     nomeParticipantes = Map<String, String>.from(element.data()['nomeParticipantes']);
     if (participantes.length > 1) {
       if (Usuario.id == participantes[0]){
-        _otherPersonName = nomeParticipantes[participantes[0]];
-      } else {
         _otherPersonName = nomeParticipantes[participantes[1]];
+      } else {
+        _otherPersonName = nomeParticipantes[participantes[0]];
       }
     }
     _ultimaMensagem = null;
