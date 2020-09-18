@@ -20,7 +20,7 @@ class Duvida{
 
     List<String> participantes = new List<String>();
     participantes.add(Usuario.id);
-    participantes.add('HfXGZtWGbGVtnhJvrbekwi5HiOC2');
+    participantes.add('wR8Wb4mUwZc0uP1Dflp6pHc1RFs1');
 
     DocumentReference novaConversa = await FirebaseFirestore.instance
       .collection('conversas')

@@ -48,8 +48,7 @@ class _ChatListViewState extends State<ChatListView> {
                   return ListTile(
                     title: Text(
                       //Texto superior
-                      //conversas.data[index].ultimoAEnviar,
-                      'Thiago Henrique',
+                      conversas.data[index].ultimoAEnviar,
                       style: TextStyle(color: ColorPalette.textColor),
                     ),
                     subtitle: Row(
