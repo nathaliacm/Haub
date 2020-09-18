@@ -62,7 +62,7 @@ class MyDrawer extends StatelessWidget {
                 Row(
                   children: [
                   Text(
-                  '<áreaProficiencia>',
+                  Usuario.interesses[0],
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 12,

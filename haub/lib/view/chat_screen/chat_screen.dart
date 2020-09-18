@@ -33,7 +33,7 @@ class _MyChatPageState extends State<MyChatPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: ColorPalette.primaryColor,
-          title: const Text('Haub chat'),
+          title: Text(widget.conversaAtual.nomeDoChat),
           actions: <Widget>[
             PopupMenuButton<String>(
               onSelected: choiceAction,
@@ -80,8 +80,6 @@ class _MyChatPageState extends State<MyChatPage> {
                                       color: this.colorBalloon,
                                     ),
                                     child: Column(
-                                      // crossAxisAlignment:
-                                      //     CrossAxisAlignment.center,
                                       children: [
                                         ListTile(
                                           title: Text(ultimasMensagens.data[index].texto),
@@ -97,13 +95,22 @@ class _MyChatPageState extends State<MyChatPage> {
                     )
                   ),
                 Center(
-                  child: Ink(
-                      decoration: ShapeDecoration(
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20.0))),
-                          color: ColorPalette.primaryColor),
-                      child: TextComposer(_sendMessage)))
+                  child:Material(
+                    elevation:1,
+                    child:Container(
+                      padding:EdgeInsets.fromLTRB(5,10,5,7),
+                      child: Ink(
+                        padding:EdgeInsets.only(left:15),
+                        decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                  BorderRadius.all(Radius.circular(24))
+                            ),
+                            color: ColorPalette.primaryColor),
+                        child: TextComposer(_sendMessage)
+                      )
+                    )
+                ))
             ])));
   }
 

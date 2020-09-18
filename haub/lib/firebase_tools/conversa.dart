@@ -45,7 +45,9 @@ class Conversa {
   String _firstSender;
   String _lastSender;
   String _lastMessageText;
+  String _otherPersonName;
   List<String> participantes;
+  Map<String, String> nomeParticipantes;
   CollectionReference _mensagens;
   DocumentSnapshot _ultimaMensagem;
   
@@ -55,6 +57,7 @@ class Conversa {
   String get ultimoTextoMensagem => _lastMessageText;
   String get originadorId => _firstSender;
   String get conversationId => _conversationId;
+  String get nomeDoChat => _otherPersonName;
 
   Conversa(DocumentSnapshot element) {
     _referencia = element.reference;
@@ -63,7 +66,9 @@ class Conversa {
     _firstSender = element.data()['firstSender'];
     _lastSender = element.data()['lastSender'];
     _lastMessageText = element.data()['lastMessageText'];
-    participantes = List.from(element.data()['participantes']);
+    participantes = List<String>.from(element.data()['participantes']);
+    nomeParticipantes = Map<String, String>.from(element.data()['nomeParticipantes']);
+    if (participantes.length > 1) {_otherPersonName = nomeParticipantes[participantes[1]];}
     _ultimaMensagem = null;
   }
 

@@ -23,7 +23,7 @@ class _TextComposerState extends State<TextComposer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8),
+        padding: EdgeInsets.fromLTRB(0,5,5,5),
         child: Row(children: <Widget>[
           Expanded(
             child: TextField(
@@ -46,10 +46,10 @@ class _TextComposerState extends State<TextComposer> {
             ),
           ),
           CircleAvatar(
-              radius: 20,
+              radius: 19,
               backgroundColor: ColorPalette.secondaryColor,
               child: IconButton(
-                icon: Icon(Icons.send, color: Colors.white),
+                icon: Icon(Icons.send, color: Colors.white, size:20),
                 onPressed: _isComposing
                     ? () {
                         widget.sendMessage(_controller.text);

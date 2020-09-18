@@ -22,7 +22,7 @@ abstract class Usuario {
     }
   }
   static String nome;
-  static Map<String, dynamic> interesses;
+  static List<String> interesses;
 
   static Future<void> inicializar() async {
     await Firebase.initializeApp();
@@ -77,7 +77,7 @@ abstract class Usuario {
         await FirebaseFirestore.instance.collection('users').doc(id).get().then(
           (DocumentSnapshot userData) {
             nome = userData.data()['nome'];
-            interesses = userData.data()['interesses'];
+            interesses = List<String>.from(userData.data()['interesses']);
           }
         );
       }

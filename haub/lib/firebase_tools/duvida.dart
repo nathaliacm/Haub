@@ -19,14 +19,16 @@ class Duvida{
     });
 
     List<String> participantes = new List<String>();
-    participantes.add(Usuario.id);
-    participantes.add('wR8Wb4mUwZc0uP1Dflp6pHc1RFs1');
+    Map<String, String> nomeParticipantes = new Map<String, String>();
+    participantes.addAll({Usuario.id,'wR8Wb4mUwZc0uP1Dflp6pHc1RFs1'});
+    nomeParticipantes.addAll({Usuario.id:Usuario.nome,'wR8Wb4mUwZc0uP1Dflp6pHc1RFs1':'Cecilia Soares'});
 
     DocumentReference novaConversa = await FirebaseFirestore.instance
       .collection('conversas')
       .add({
         'firstSender':Usuario.id,
         'participantes':participantes,
+        'nomeParticipantes':nomeParticipantes,
         'lastSender':Usuario.nome,
         'lastMessageText':texto,
         'lastTimestamp':Timestamp.now()

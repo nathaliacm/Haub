@@ -30,7 +30,9 @@ class _ChatListViewState extends State<ChatListView> {
         builder:
           (context, conversas) {
               if (conversas.data == null) {
-                return CircularProgressIndicator();
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
               } else {
               return ListView.builder(
                 padding: EdgeInsets.fromLTRB(14, 0, 14, 0),
@@ -39,7 +41,7 @@ class _ChatListViewState extends State<ChatListView> {
                   return ListTile(
                     title: Text(
                       //Texto superior
-                      conversas.data[index].ultimoAEnviar,
+                      conversas.data[index].nomeDoChat,
                       style: TextStyle(color: ColorPalette.textColor),
                     ),
                     subtitle: Row(
