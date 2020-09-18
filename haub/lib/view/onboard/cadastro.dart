@@ -14,7 +14,7 @@ class MyRegisterPage extends StatelessWidget {
         'Português',
         'História',
         'inglês',
-        'Geográfia',
+        'Geografia',
         'Química',
         'Sociologia',
         'Filosofia'
