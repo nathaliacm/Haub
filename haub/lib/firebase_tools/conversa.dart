@@ -68,7 +68,13 @@ class Conversa {
     _lastMessageText = element.data()['lastMessageText'];
     participantes = List<String>.from(element.data()['participantes']);
     nomeParticipantes = Map<String, String>.from(element.data()['nomeParticipantes']);
-    if (participantes.length > 1) {_otherPersonName = nomeParticipantes[participantes[1]];}
+    if (participantes.length > 1) {
+      if (Usuario.id == participantes[0]){
+        _otherPersonName = nomeParticipantes[participantes[0]];
+      } else {
+        _otherPersonName = nomeParticipantes[participantes[1]];
+      }
+    }
     _ultimaMensagem = null;
   }
 
