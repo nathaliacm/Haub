@@ -81,7 +81,6 @@ class Conversa {
               value.docs.forEach(
                 (element) {
                   Mensagem message = Mensagem();
-                  print(element.data()['timestamp']);
                   message._setFromDB(
                     conversationId,
                     element.data()['senderId'],
