@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:haub/firebase_tools/duvida.dart';
-import 'package:haub/firebase_tools/usuario.dart';
 import 'package:haub/models/appBar.dart';
 import 'package:haub/models/raisedButton.dart';
 
@@ -65,7 +64,7 @@ class MyDaubtAbstractPage extends StatelessWidget {
                   padding: EdgeInsets.only(top: 40),
                   width: 200,
                   child: MyRaisedButton(() {
-                    Usuario.enviarDuvida(questionStatus);
+                    questionStatus.enviar();
                     Navigator.popUntil(context, ModalRoute.withName('/home'));
                   }, "Confirmar")),
             ],
