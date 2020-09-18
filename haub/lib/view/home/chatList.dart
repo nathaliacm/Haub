@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:haub/firebase_tools/conversa.dart';
 import 'package:haub/firebase_tools/usuario.dart';
@@ -21,14 +20,7 @@ class _ChatListViewState extends State<ChatListView> {
   @override
   void initState() {
     widget.convStream = Usuario.conversas(minhasDuvidas:widget.minhasDuvidas);
-    print('initializing');
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    print('disposing');
-    super.dispose();
   }
 
   @override
@@ -37,7 +29,6 @@ class _ChatListViewState extends State<ChatListView> {
         stream: widget.convStream,
         builder:
           (context, conversas) {
-              print('${conversas.data==null}');
               if (conversas.data == null) {
                 return CircularProgressIndicator();
               } else {

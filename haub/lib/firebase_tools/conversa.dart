@@ -95,7 +95,6 @@ class Conversa {
               );
               _ultimaMensagem = value.docs.last;
             }
-            print('chamada mensagens ${mensagens==null}');
             controlador.add(mensagens);
           }
       );

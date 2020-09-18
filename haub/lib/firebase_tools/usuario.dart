@@ -131,7 +131,6 @@ abstract class Usuario {
             value.docs.forEach(
               (element) {
                 Conversa novo = new Conversa(element);
-                print(novo);
                 if ((minhasDuvidas) == (novo.originadorId == Usuario.id)) {
                   lista.add(novo);
                 }
