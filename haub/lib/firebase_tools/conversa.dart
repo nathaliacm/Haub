@@ -45,7 +45,9 @@ class Conversa {
   String _firstSender;
   String _lastSender;
   String _lastMessageText;
+  String _otherPersonName;
   List<String> participantes;
+  Map<String, String> nomeParticipantes;
   CollectionReference _mensagens;
   DocumentSnapshot _ultimaMensagem;
   
@@ -55,6 +57,7 @@ class Conversa {
   String get ultimoTextoMensagem => _lastMessageText;
   String get originadorId => _firstSender;
   String get conversationId => _conversationId;
+  String get nomeDoChat => _otherPersonName;
 
   Conversa(DocumentSnapshot element) {
     _referencia = element.reference;
@@ -63,7 +66,15 @@ class Conversa {
     _firstSender = element.data()['firstSender'];
     _lastSender = element.data()['lastSender'];
     _lastMessageText = element.data()['lastMessageText'];
-    participantes = List.from(element.data()['participantes']);
+    participantes = List<String>.from(element.data()['participantes']);
+    nomeParticipantes = Map<String, String>.from(element.data()['nomeParticipantes']);
+    if (participantes.length > 1) {
+      if (Usuario.id == participantes[0]){
+        _otherPersonName = nomeParticipantes[participantes[1]];
+      } else {
+        _otherPersonName = nomeParticipantes[participantes[0]];
+      }
+    }
     _ultimaMensagem = null;
   }
 
@@ -81,7 +92,6 @@ class Conversa {
               value.docs.forEach(
                 (element) {
                   Mensagem message = Mensagem();
-                  print(element.data()['timestamp']);
                   message._setFromDB(
                     conversationId,
                     element.data()['senderId'],
@@ -95,7 +105,6 @@ class Conversa {
               );
               _ultimaMensagem = value.docs.last;
             }
-            print('chamada mensagens ${mensagens==null}');
             controlador.add(mensagens);
           }
       );

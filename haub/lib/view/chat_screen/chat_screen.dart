@@ -9,9 +9,7 @@ class MyChatPage extends StatefulWidget {
   final Conversa conversaAtual;
   Stream<List<Mensagem>> msgStream;
 
-  MyChatPage(this.conversaAtual, {Key key}) : super(key: key){
-    print('conversaAtual ${conversaAtual.originadorId}');
-  }
+  MyChatPage(this.conversaAtual, {Key key}) : super(key: key);
 
   @override
   _MyChatPageState createState() => _MyChatPageState();
@@ -35,7 +33,7 @@ class _MyChatPageState extends State<MyChatPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: ColorPalette.primaryColor,
-          title: const Text('Haub chat'),
+          title: Text(widget.conversaAtual.nomeDoChat),
           actions: <Widget>[
             PopupMenuButton<String>(
               onSelected: choiceAction,
@@ -54,60 +52,65 @@ class _MyChatPageState extends State<MyChatPage> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-              Expanded(
-                child: StreamBuilder<List<Mensagem>>(
-                  stream: widget.msgStream,
-                  builder: (context, ultimasMensagens) {
-                    switch (ultimasMensagens.connectionState) {
-                      case ConnectionState.none:
-                      case ConnectionState.waiting:
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      default:
-                        if(ultimasMensagens.data==null) {return Center(child: CircularProgressIndicator());}
-                        return ListView.builder(
-                            itemCount: ultimasMensagens.data.length,
-                            reverse: true,
-                            itemBuilder: (context, index) {
-                              print('chegouaqui');
-                              return Container(
-                                margin:
-                                  chooseSide(ultimasMensagens.data[index]),
-                                child: Ink(
-                                  decoration: ShapeDecoration(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(20.0)
-                                      )
-                                    ),
-                                    color: this.colorBalloon,
-                                  ),
-                                  child: Column(
-                                    // crossAxisAlignment:
-                                    //     CrossAxisAlignment.center,
-                                    children: [
-                                      ListTile(
-                                        title: Text(ultimasMensagens.data[index].texto),
+                  Expanded(
+                    child: StreamBuilder<List<Mensagem>>(
+                      stream: widget.msgStream,
+                      builder: (context, ultimasMensagens) {
+                        switch (ultimasMensagens.connectionState) {
+                          case ConnectionState.none:
+                          case ConnectionState.waiting:
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          default:
+                            if(ultimasMensagens.data==null) {return Center(child: CircularProgressIndicator());}
+                            return ListView.builder(
+                              itemCount: ultimasMensagens.data.length,
+                              reverse: true,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: chooseSide(ultimasMensagens.data[index]),
+                                  child: Ink(
+                                    decoration: ShapeDecoration(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(20.0)
+                                        )
                                       ),
-                                    ]
-                                  ),
-                                )
-                              );
-                            }
-                        );
-                    }
-                  },
-                ),
-              ),
-              Center(
-                  child: Ink(
-                      decoration: ShapeDecoration(
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20.0))),
-                          color: ColorPalette.primaryColor),
-                      child: TextComposer(_sendMessage)))
+                                      color: this.colorBalloon,
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        ListTile(
+                                          title: Text(ultimasMensagens.data[index].texto),
+                                        ),
+                                      ]
+                                    ),
+                                  )
+                                );
+                              }
+                            );
+                        }
+                      }
+                    )
+                  ),
+                Center(
+                  child:Material(
+                    elevation:1,
+                    child:Container(
+                      padding:EdgeInsets.fromLTRB(5,10,5,7),
+                      child: Ink(
+                        padding:EdgeInsets.only(left:15),
+                        decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                  BorderRadius.all(Radius.circular(24))
+                            ),
+                            color: ColorPalette.primaryColor),
+                        child: TextComposer(_sendMessage)
+                      )
+                    )
+                ))
             ])));
   }
 

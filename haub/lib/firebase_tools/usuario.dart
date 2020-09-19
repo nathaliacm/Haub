@@ -4,12 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:haub/firebase_tools/conversa.dart';
-import 'package:haub/firebase_tools/duvida.dart';
 
 abstract class Usuario {
   static User _usuario;
   static String get id {
-    if (_usuario != null){
+    if (_usuario != null) {
       return _usuario.uid;
     } else {
       return '';
@@ -23,7 +22,7 @@ abstract class Usuario {
     }
   }
   static String nome;
-  static Map<String, dynamic> interesses;
+  static List<String> interesses;
 
   static Future<void> inicializar() async {
     await Firebase.initializeApp();
@@ -78,7 +77,7 @@ abstract class Usuario {
         await FirebaseFirestore.instance.collection('users').doc(id).get().then(
           (DocumentSnapshot userData) {
             nome = userData.data()['nome'];
-            interesses = userData.data()['interesses'];
+            interesses = List<String>.from(userData.data()['interesses']);
           }
         );
       }
@@ -115,16 +114,6 @@ abstract class Usuario {
     await GoogleSignIn().signOut();
     await _fetchUserMetaData();
     return (!estaConectado());
-  }
-
-  static Future<void> enviarDuvida(Duvida novaDuvida) async {
-    FirebaseFirestore.instance.collection('duvidas').doc().set({
-      'sender':id,
-      'timestamp':DateTime.now(),
-      'texto':novaDuvida.texto,
-      'area':novaDuvida.area,
-      'nivel':novaDuvida.nivel
-    });
   }
 
   static Stream<List<Conversa>> conversas({bool minhasDuvidas}) {
