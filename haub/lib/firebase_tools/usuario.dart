@@ -77,7 +77,11 @@ abstract class Usuario {
         await FirebaseFirestore.instance.collection('users').doc(id).get().then(
           (DocumentSnapshot userData) {
             nome = userData.data()['nome'];
-            interesses = List<String>.from(userData.data()['interesses']);
+            if (userData.data()['interesses'] != null) {
+              interesses = List<String>.from(userData.data()['interesses']);
+            } else {
+              interesses = new List<String>();
+            }
           }
         );
       }
