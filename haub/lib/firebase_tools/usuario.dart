@@ -7,7 +7,7 @@ import 'package:haub/firebase_tools/conversa.dart';
 
 abstract class Usuario {
   static User _usuario;
-  
+
   static String get id {
     if (_usuario != null) {
       return _usuario.uid;
@@ -88,7 +88,11 @@ abstract class Usuario {
             .get()
             .then((DocumentSnapshot userData) {
           nome = userData.data()['nome'];
-          interesses = List<String>.from(userData.data()['interesses']);
+          if (userData.data()['interesses'] != null) {
+            interesses = List<String>.from(userData.data()['interesses']);
+          } else {
+            interesses = new List<String>();
+          }
         });
       }
     } else {

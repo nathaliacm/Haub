@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 class DropDownButtomOnly extends StatefulWidget {
   DropDownButtomOnly(this.dropdownSelected, this.selecionado,
-      this.onChangedDropDown, this.enable);
+      this.onChangedDropDown, this.enable, this.hintText);
 
   String selecionado;
+  String hintText;
   final List<String> dropdownSelected;
   final Function onChangedDropDown;
   bool enable;
@@ -30,8 +31,7 @@ class _DropDownButtomOnlyState extends State<DropDownButtomOnly> {
         child: DropdownButton<String>(
           value: currentValue,
           isExpanded: true,
-          hint:
-              !widget.enable ? Text("< Sua área/lével >") : Text(" Selecione"),
+          hint: !widget.enable ? Text(widget.hintText) : Text(" Selecione"),
           items: widget.dropdownSelected.map((String dropDownStringItem) {
             return DropdownMenuItem<String>(
               value: dropDownStringItem,
