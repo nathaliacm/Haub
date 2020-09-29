@@ -30,7 +30,8 @@ class _DropDownButtomOnlyState extends State<DropDownButtomOnly> {
         child: DropdownButton<String>(
           value: currentValue,
           isExpanded: true,
-          hint: !widget.enable ? Text("Selecione") : Text(" "),
+          hint:
+              !widget.enable ? Text("< Sua área/lével >") : Text(" Selecione"),
           items: widget.dropdownSelected.map((String dropDownStringItem) {
             return DropdownMenuItem<String>(
               value: dropDownStringItem,
