@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:haub/firebase_tools/usuario.dart';
 import 'package:haub/models/appBar.dart';
 import 'package:haub/models/colorPalette.dart';
 import 'package:haub/models/dropDownButtonElement.dart';
@@ -13,14 +15,14 @@ class MyProfileScreen extends StatefulWidget {
 class _MyProfileScreenState extends State<MyProfileScreen> {
   final TextEditingController _mytextController = TextEditingController();
   bool _edit = false;
+  String usuarioNome = Usuario.nome;
+  String escolaridade = Usuario.interesses[0];
+  String areadeDominio;
+  String niveldeDominio;
 
   String selecionadoEscolaridade;
   String selecionadoAreadeDominio;
   String selecionadoNiveldeDominio;
-
-  String escolaridade;
-  String areadeDominio;
-  String niveldeDominio;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +67,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   focusNode: FocusNode(canRequestFocus: false),
                   keyboardType: TextInputType.multiline,
                   decoration: InputDecoration(
-                    hintText: !_edit ? "<nome usuario>" : "Seu nome",
+                    hintText: usuarioNome,
+                    hintStyle: !_edit
+                        ? TextStyle(color: Colors.black)
+                        : TextStyle(color: Colors.grey),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey),
                       borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -85,7 +90,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   escolaridade,
                   (String selecao) => selecao = selecionadoEscolaridade,
                   _edit,
-                  "<Sua escolaridade>"),
+                  "Sua escolaridade"),
               Text(
                 "Área de domínio",
                 style: TextStyle(fontSize: 15),
@@ -95,7 +100,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   areadeDominio,
                   (String selecao) => selecao = selecionadoAreadeDominio,
                   _edit,
-                  "<Sua área de domínio>"),
+                  Usuario.interesses[0]),
               DropDownButtomOnly(
                   ["Ensino médio", "Ensino Superior", "Mestrado", "Doutorado"],
                   niveldeDominio,

@@ -31,7 +31,17 @@ class _DropDownButtomOnlyState extends State<DropDownButtomOnly> {
         child: DropdownButton<String>(
           value: currentValue,
           isExpanded: true,
-          hint: !widget.enable ? Text(widget.hintText) : Text(" Selecione"),
+          hint: Padding(
+              padding: EdgeInsets.all(10),
+              child: !widget.enable
+                  ? Text(
+                      widget.hintText,
+                      style: TextStyle(color: Colors.black),
+                    )
+                  : Text(
+                      widget.hintText,
+                      style: TextStyle(color: Colors.grey),
+                    )),
           items: widget.dropdownSelected.map((String dropDownStringItem) {
             return DropdownMenuItem<String>(
               value: dropDownStringItem,
