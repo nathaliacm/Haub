@@ -11,6 +11,9 @@ class MyProfileScreen extends StatefulWidget {
 }
 
 class _MyProfileScreenState extends State<MyProfileScreen> {
+  final TextEditingController _mytextController = TextEditingController();
+  bool _edit = false;
+
   String selecionadoEscolaridade;
   String selecionadoAreadeDominio;
   String selecionadoNiveldeDominio;
@@ -27,21 +30,42 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
         child: Center(
           child: Column(
             children: [
-              Container(
-                padding: EdgeInsets.all(20),
-                child: Icon(
-                  Icons.photo,
-                  size: 80,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    icon: !_edit ? Icon(Icons.edit) : Icon(Icons.check_circle),
+                    color: ColorPalette.secondaryColor,
+                    onPressed: () {
+                      setState(() {
+                        _edit = !_edit;
+                      });
+                    },
+                  ),
+                ],
               ),
+              Container(
+                  padding: EdgeInsets.all(20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.photo,
+                        size: 80,
+                      ),
+                    ],
+                  )),
               Container(
                 padding: EdgeInsets.all(10),
                 height: 70,
-                width: 350,
-                child: TextField(
+                width: 360,
+                child: TextFormField(
+                  enabled: _edit,
+                  controller: _mytextController,
+                  focusNode: FocusNode(canRequestFocus: false),
                   keyboardType: TextInputType.multiline,
                   decoration: InputDecoration(
-                    hintText: "Seu nome",
+                    hintText: !_edit ? "<nome usuario>" : "Seu nome",
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey),
                       borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -56,32 +80,25 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 "Escolaridade",
                 style: TextStyle(fontSize: 15),
               ),
-
-              DropDownButtomOnly([
-                  "Ensino médio",
-                  "Ensino Superior",
-                  "Mestrado",
-                  "Doutorado"
-                ], escolaridade, (String selecao) => selecao = selecionadoEscolaridade),
-     
+              DropDownButtomOnly(
+                  ["Ensino médio", "Ensino Superior", "Mestrado", "Doutorado"],
+                  escolaridade,
+                  (String selecao) => selecao = selecionadoEscolaridade,
+                  _edit),
               Text(
                 "Área de domínio",
                 style: TextStyle(fontSize: 15),
               ),
-
               DropDownButtomOnly(
-                    ["Fisica", "Matematica", "ingles", "Historia"],
-                    areadeDominio,
-                    (String selecao) => selecao = selecionadoAreadeDominio),
-
-
-               DropDownButtomOnly([
-                  "Ensino médio",
-                  "Ensino Superior",
-                  "Mestrado",
-                  "Doutorado"
-                ], niveldeDominio, (String selecao) => selecao = selecionadoNiveldeDominio),
-
+                  ["Fisica", "Matematica", "ingles", "Historia"],
+                  areadeDominio,
+                  (String selecao) => selecao = selecionadoAreadeDominio,
+                  _edit),
+              DropDownButtomOnly(
+                  ["Ensino médio", "Ensino Superior", "Mestrado", "Doutorado"],
+                  niveldeDominio,
+                  (String selecao) => selecao = selecionadoNiveldeDominio,
+                  _edit),
             ],
           ),
         ),

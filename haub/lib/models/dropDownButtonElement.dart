@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DropDownButtomOnly extends StatefulWidget {
-  DropDownButtomOnly(
-      this.dropdownSelected, this.selecionado, this.onChangedDropDown);
+  DropDownButtomOnly(this.dropdownSelected, this.selecionado,
+      this.onChangedDropDown, this.enable);
 
   String selecionado;
   final List<String> dropdownSelected;
   final Function onChangedDropDown;
+  bool enable;
 
   @override
   _DropDownButtomOnlyState createState() => _DropDownButtomOnlyState();
@@ -29,6 +30,7 @@ class _DropDownButtomOnlyState extends State<DropDownButtomOnly> {
         child: DropdownButton<String>(
           value: currentValue,
           isExpanded: true,
+          hint: !widget.enable ? Text("Selecione") : Text(" "),
           items: widget.dropdownSelected.map((String dropDownStringItem) {
             return DropdownMenuItem<String>(
               value: dropDownStringItem,
@@ -40,7 +42,9 @@ class _DropDownButtomOnlyState extends State<DropDownButtomOnly> {
           }).toList(),
           onChanged: (novoItemSelecionado) {
             widget.onChangedDropDown(novoItemSelecionado);
-            setState(() => currentValue = novoItemSelecionado);
+            !widget.enable
+                ? null
+                : setState(() => currentValue = novoItemSelecionado);
           },
         ),
       ),
