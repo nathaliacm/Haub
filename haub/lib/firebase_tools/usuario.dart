@@ -7,6 +7,7 @@ import 'package:haub/firebase_tools/conversa.dart';
 
 abstract class Usuario {
   static User _usuario;
+
   static String get id {
     if (_usuario != null) {
       return _usuario.uid;
@@ -14,19 +15,23 @@ abstract class Usuario {
       return '';
     }
   }
+
   static String get email {
-    if (_usuario != null){
+    if (_usuario != null) {
       return _usuario.email;
     } else {
       return '';
     }
   }
+
   static String nome;
   static List<String> interesses;
 
   static Future<void> inicializar() async {
     await Firebase.initializeApp();
-    FirebaseAuth.instance.authStateChanges().listen((user) {_usuario = user;});
+    FirebaseAuth.instance.authStateChanges().listen((user) {
+      _usuario = user;
+    });
   }
 
   static bool estaConectado() {
@@ -34,9 +39,11 @@ abstract class Usuario {
   }
 
   static Future<bool> jaCadastrado() async {
-      return await FirebaseFirestore.instance.collection('users').doc(id).get().then(
-        (usuario) => usuario.exists
-      );
+    return await FirebaseFirestore.instance
+        .collection('users')
+        .doc(id)
+        .get()
+        .then((usuario) => usuario.exists);
   }
 
   static Future<bool> cadastrar() async {
@@ -48,7 +55,8 @@ abstract class Usuario {
     // Trigger the Google Authentication flow.
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
     // Obtain the auth details from the request.
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
     // Create a new credential.
     final GoogleAuthCredential googleCredential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
@@ -56,10 +64,10 @@ abstract class Usuario {
     );
     // Sign in to Firebase with the Google [UserCredential].
     final UserCredential googleUserCredential =
-      await FirebaseAuth.instance.signInWithCredential(googleCredential);
+        await FirebaseAuth.instance.signInWithCredential(googleCredential);
 
     _usuario = googleUserCredential.user;
-    
+
     if (_usuario != null) {
       if (!await jaCadastrado()) {
         nome = _usuario.displayName;
@@ -74,12 +82,18 @@ abstract class Usuario {
   static Future<void> _fetchUserMetaData() async {
     if (_usuario != null) {
       if ((id != '') & (await jaCadastrado())) {
-        await FirebaseFirestore.instance.collection('users').doc(id).get().then(
-          (DocumentSnapshot userData) {
-            nome = userData.data()['nome'];
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(id)
+            .get()
+            .then((DocumentSnapshot userData) {
+          nome = userData.data()['nome'];
+          if (userData.data()['interesses'] != null) {
             interesses = List<String>.from(userData.data()['interesses']);
+          } else {
+            interesses = new List<String>();
           }
-        );
+        });
       }
     } else {
       nome = '';
@@ -88,15 +102,9 @@ abstract class Usuario {
   }
 
   static Future<void> _pushUserMetaData() async {
-    if (id != ''){
+    if (id != '') {
       await FirebaseFirestore.instance.collection('users').doc(id).set(
-        {
-          'id':id,
-          'email':email,
-          'nome':nome,
-          'interesses':interesses
-        }
-      );
+          {'id': id, 'email': email, 'nome': nome, 'interesses': interesses});
     }
   }
 
@@ -117,29 +125,26 @@ abstract class Usuario {
   }
 
   static Stream<List<Conversa>> conversas({bool minhasDuvidas}) {
-    StreamController<List<Conversa>> controlador = new StreamController<List<Conversa>>.broadcast();
+    StreamController<List<Conversa>> controlador =
+        new StreamController<List<Conversa>>();
     List<Conversa> lista = new List<Conversa>();
 
     Conversa.todas
-      .where('participantes', arrayContains:id)
-      .orderBy('lastTimestamp',descending: true)
-      .snapshots()
-      .listen(
-        (value) {
-          lista.clear();
-          if (value != null) {
-            value.docs.forEach(
-              (element) {
-                Conversa novo = new Conversa(element);
-                if ((minhasDuvidas) == (novo.originadorId == Usuario.id)) {
-                  lista.add(novo);
-                }
-              }
-            );
+        .where('participantes', arrayContains: id)
+        .orderBy('lastTimestamp', descending: true)
+        .snapshots()
+        .listen((value) {
+      lista.clear();
+      if (value != null) {
+        value.docs.forEach((element) {
+          Conversa novo = new Conversa(element);
+          if ((minhasDuvidas) == (novo.originadorId == Usuario.id)) {
+            lista.add(novo);
           }
-          controlador.add(lista);
-        }
-      );
+        });
+      }
+      controlador.add(lista);
+    });
     return controlador.stream;
   }
 
