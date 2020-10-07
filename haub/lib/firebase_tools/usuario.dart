@@ -7,7 +7,6 @@ import 'package:haub/firebase_tools/conversa.dart';
 
 abstract class Usuario {
   static User _usuario;
-
   static String get id {
     if (_usuario != null) {
       return _usuario.uid;
@@ -15,7 +14,6 @@ abstract class Usuario {
       return '';
     }
   }
-
   static String get email {
     if (_usuario != null) {
       return _usuario.email;
@@ -23,7 +21,6 @@ abstract class Usuario {
       return '';
     }
   }
-
   static String nome;
   static List<String> interesses;
 
@@ -49,6 +46,15 @@ abstract class Usuario {
   static Future<bool> cadastrar() async {
     await _pushUserMetaData();
     return await jaCadastrado();
+  }
+
+  static Future<bool> salvarPerfil() async {
+    if (await jaCadastrado()) {
+      await _pushUserMetaData();
+      return true;
+    } else {
+      return false;
+    }
   }
 
   static Future<bool> _fazerLoginGoogle() async {
