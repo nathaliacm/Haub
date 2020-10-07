@@ -47,12 +47,12 @@ class _ChatListViewState extends State<ChatListView> {
                     subtitle: Row(
                       children: [
                         Expanded(
-                            child: Text(
-                              conversas.data[index].ultimoTextoMensagem,
-                              overflow: TextOverflow.ellipsis,
+                          child: Text(
+                            conversas.data[index].ultimoTextoMensagem,
+                            overflow: TextOverflow.ellipsis,
                         )),
                         SizedBox(width: 10),
-                        //Text(list[index].data()['lastTimestamp'])
+                        Text(conversas.data[index].ultimaHoraMensagem.toString())
                       ],
                     ),
                     onTap: () {
